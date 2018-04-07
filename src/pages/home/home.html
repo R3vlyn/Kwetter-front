@@ -18,26 +18,55 @@
         </ion-segment-button>
     </ion-segment>
     <div *ngIf="selectedSegment === 'Dashboard'">
+        <ion-card>
+            <ion-card-header>What are are you doing?</ion-card-header>
+            <ion-card-content>
+                <ion-item>
+                    <ion-input [(ngModel)]="newKweetmessage" type="" placeholder="Kweeter kweeter kweet...."></ion-input>
+                </ion-item>
+                <button ion-button round (click)="postKweet()">Kweet!</button>
+            </ion-card-content>
+        </ion-card>
         <ion-list text-center>
             <ion-row>
                 <ion-col>
-                    <ion-chip *ngIf="usertotals" color="primary">
+                    <ion-chip *ngIf="usertotals" color="secondary">
                         <ion-icon color="dark">{{usertotals.following}}</ion-icon>
                         <ion-label>Following</ion-label>
                     </ion-chip>
                 </ion-col>
                 <ion-col>
-                    <ion-chip *ngIf="usertotals" color="primary">
+                    <ion-chip *ngIf="usertotals" color="secondary">
                         <ion-icon color="dark">{{usertotals.followers}}</ion-icon>
                         <ion-label>Followers</ion-label>
                     </ion-chip>
                 </ion-col>
                 <ion-col>
-                    <ion-chip *ngIf="usertotals" color="primary">
+                    <ion-chip *ngIf="usertotals" color="secondary">
                         <ion-icon color="dark">{{usertotals.kweets}}</ion-icon>
                         <ion-label>Kweets</ion-label>
                     </ion-chip>
                 </ion-col>
+            </ion-row>
+        </ion-list>
+        <ion-card *ngIf="lastkweet" color="secondary">
+            <ion-card-header>Your last kweet was {{lastkweet.timeago}} hours ago...</ion-card-header>
+            <ion-card-content>
+                {{lastkweet.message}}
+            </ion-card-content>
+
+        </ion-card>
+    </div>
+    <div *ngIf="selectedSegment === 'Timeline'">
+        <ion-list *ngFor="let kweet of timeline">
+            <ion-row>
+                <ion-card color="secondary">
+                    <ion-card-header>{{kweet.username}}</ion-card-header>
+                    <ion-card-content>
+                        <ion-row>{{kweet.message}}</ion-row>
+                        <ion-row>Date: {{kweet.postDate}}</ion-row>
+                    </ion-card-content>
+                </ion-card>
             </ion-row>
         </ion-list>
     </div>
@@ -54,7 +83,7 @@
         </ion-card>
     </ion-list>
     <ion-list *ngFor="let trend of trends">
-        <ion-card *ngIf="selectedSegment === 'Trends'">
+        <ion-card *ngIf="selectedSegment === 'Trends'" color="secondary">
             <ion-row>
                 <ion-col>
                     <h2>{{trend.hashtagName}}</h2>

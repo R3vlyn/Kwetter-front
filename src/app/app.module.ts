@@ -1,3 +1,5 @@
+import { UserService } from './../services/user.service';
+import { AuthenticatePage } from './../pages/authenticate/authenticate';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -16,7 +18,8 @@ import { SingletonService } from '../services/singleton.service';
     MyApp,
 ProfilePage,
     HomePage,
-    TabsPage
+    TabsPage,
+    AuthenticatePage
   ],
   imports: [
     HttpClientModule,
@@ -25,12 +28,14 @@ ProfilePage,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
+    AuthenticatePage,
     MyApp,
 ProfilePage,
     HomePage,
     TabsPage
   ],
   providers: [
+    UserService,
     SingletonService,
     StatusBar,
     SplashScreen,
