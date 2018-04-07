@@ -9,7 +9,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { HttpClientModule } from '@angular/common/http';
+import { SingletonService } from '../services/singleton.service';
 @NgModule({
   declarations: [
     MyApp,
@@ -18,6 +19,7 @@ ProfilePage,
     TabsPage
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     IonicModule.forRoot(MyApp)
   ],
@@ -29,6 +31,7 @@ ProfilePage,
     TabsPage
   ],
   providers: [
+    SingletonService,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

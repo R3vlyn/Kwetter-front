@@ -4,4 +4,3 @@ export class User {
     profilename: string;
     image: string;
   }
-  

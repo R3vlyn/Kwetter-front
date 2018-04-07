@@ -1,32 +1,65 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
-    <ion-searchbar #searchbar [(ngModel)]="filtertext" [showCancelButton]="true">
-    </ion-searchbar>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-searchbar #searchbar [(ngModel)]="filtertext" [showCancelButton]="true">
+        </ion-searchbar>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h2>Welcome to Ionic!</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
-
-  <ion-list *ngFor="let user of users">
-    <ion-card [hidden]="!Match(user)" (click)="goToUser(user)">
-        <ion-row>
-            <ion-col>
-                <h2>{{user.name}}</h2>
-            </ion-col>
-            <ion-col>
-              <h2>{{user.profilename}}</h2>
-            </ion-col>
-        </ion-row>
-    </ion-card>
-</ion-list>
+    <ion-segment [(ngModel)]="selectedSegment" color="primary">
+        <ion-segment-button value="Dashboard">
+            Dashboard
+        </ion-segment-button>
+        <ion-segment-button value="Trends">
+            Trends
+        </ion-segment-button>
+        <ion-segment-button value="Timeline">
+            Timeline
+        </ion-segment-button>
+    </ion-segment>
+    <div *ngIf="selectedSegment === 'Dashboard'">
+        <ion-list text-center>
+            <ion-row>
+                <ion-col>
+                    <ion-chip *ngIf="usertotals" color="primary">
+                        <ion-icon color="dark">{{usertotals.following}}</ion-icon>
+                        <ion-label>Following</ion-label>
+                    </ion-chip>
+                </ion-col>
+                <ion-col>
+                    <ion-chip *ngIf="usertotals" color="primary">
+                        <ion-icon color="dark">{{usertotals.followers}}</ion-icon>
+                        <ion-label>Followers</ion-label>
+                    </ion-chip>
+                </ion-col>
+                <ion-col>
+                    <ion-chip *ngIf="usertotals" color="primary">
+                        <ion-icon color="dark">{{usertotals.kweets}}</ion-icon>
+                        <ion-label>Kweets</ion-label>
+                    </ion-chip>
+                </ion-col>
+            </ion-row>
+        </ion-list>
+    </div>
+    <ion-list *ngFor="let user of users">
+        <ion-card [hidden]="!Match(user)" (click)="goToUser(user)">
+            <ion-row>
+                <ion-col>
+                    <h2>{{user.name}}</h2>
+                </ion-col>
+                <ion-col>
+                    <h2>{{user.profilename}}</h2>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </ion-list>
+    <ion-list *ngFor="let trend of trends">
+        <ion-card *ngIf="selectedSegment === 'Trends'">
+            <ion-row>
+                <ion-col>
+                    <h2>{{trend.hashtagName}}</h2>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </ion-list>
 </ion-content>
