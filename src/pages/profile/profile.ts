@@ -24,8 +24,8 @@ export class ProfilePage {
   }
 
   ionViewWillEnter() {
-    if(this.navParams.data.user){
-    this.user = this.navParams.data.user;
+    if (this.navParams.data.user) {
+      this.user = this.navParams.data.user;
     }
   }
 }

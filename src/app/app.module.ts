@@ -16,7 +16,7 @@ import { SingletonService } from '../services/singleton.service';
 @NgModule({
   declarations: [
     MyApp,
-ProfilePage,
+    ProfilePage,
     HomePage,
     TabsPage,
     AuthenticatePage
@@ -30,7 +30,7 @@ ProfilePage,
   entryComponents: [
     AuthenticatePage,
     MyApp,
-ProfilePage,
+  ProfilePage,
     HomePage,
     TabsPage
   ],
