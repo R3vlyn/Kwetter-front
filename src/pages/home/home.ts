@@ -29,6 +29,8 @@ export class HomePage {
   lastkweet:any;
   selectedSegment: string = 'Dashboard';
   usertotals:any;
+  page: number = 1;
+  amount: number = 7;
   loading: Loading;
 
   constructor(private storage: Storage, private loadingCtrl: LoadingController, public toastCtrl: ToastController, public singleton:SingletonService,public navCtrl: NavController, private userService: UserService,public httpClient: HttpClient) {
@@ -60,14 +62,24 @@ refreshTrends(){
 }
 
 refreshTimeline(){
-  //this.showLoading()
-  this.timelineObservable = this.httpClient.get(this.singleton.timelineCall(this.userService.user));
+  this.page = 1;
+  this.timelineObservable = this.httpClient.get(this.singleton.timelineControlledCall(this.userService.user, this.page, this.amount));
   this.timelineObservable
   .subscribe(data => {
-    //this.loading.dismiss();
     this.timeline = data;
-    console.log('Timeline: ', data);
   })
+}
+
+loadMoreTimelineItems(infiniteScroll){
+    this.page++;
+    this.timelineObservable = this.httpClient.get(this.singleton.timelineControlledCall(this.userService.user, this.page, this.amount));
+    this.timelineObservable
+    .subscribe(data => {
+      if(data !== null){
+      Array.prototype.push.apply(this.timeline, data)
+      }
+      infiniteScroll.complete();
+    })
 }
 
   refreshLastKweet(){
