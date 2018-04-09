@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from './../../models/user';
-import { Profile } from './../../models/profile';
 import { SingletonService } from './../../services/singleton.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -21,7 +20,7 @@ import { UserService } from './../../services/user.service';
 })
 export class ProfilePage {
 
-  profile: Profile;
+  profile: any;
   profileObservable: Observable<any>;
 
   constructor (
@@ -48,6 +47,7 @@ export class ProfilePage {
         const profileData = data[0];
         this.profile = {
           name: profileData.name,
+          image: "https://www.watsonmartin.com/wp-content/uploads/2016/03/default-profile-picture.jpg",
           location: profileData.location,
           website: profileData.website,
           bio: profileData.bio,
@@ -55,6 +55,7 @@ export class ProfilePage {
       } else {
         this.profile = {
           name: "",
+          image: "https://www.watsonmartin.com/wp-content/uploads/2016/03/default-profile-picture.jpg",
           location: "",
           website: "",
           bio: "",

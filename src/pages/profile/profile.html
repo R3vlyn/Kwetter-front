@@ -11,9 +11,11 @@
 </ion-header>
 
 <ion-content padding>
-    <div *ngIf="profile">
-        <ion-avatar>
-            <img src="img/avatar-cher.png">asdfasf
-        </ion-avatar>
+    <div *ngIf="profile" text-center>
+        <ion-item center>
+            <ion-avatar center>
+                <img [src]="profile.image">
+            </ion-avatar>
+        </ion-item>
     </div>
 </ion-content>
