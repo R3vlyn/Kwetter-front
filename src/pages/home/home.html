@@ -2,10 +2,11 @@
     <ion-navbar>
         <ion-searchbar #searchbar [(ngModel)]="filtertext" [showCancelButton]="true">
         </ion-searchbar>
+        <ion-buttons end>
+            <button ion-button round (click)="logout()">Logout</button>
+        </ion-buttons>
     </ion-navbar>
-    <ion-buttons end>
-        <button ion-button round (click)="logout()">Logout</button>
-    </ion-buttons>
+
 </ion-header>
 
 <ion-content padding>

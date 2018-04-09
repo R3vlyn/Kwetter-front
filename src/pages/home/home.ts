@@ -1,3 +1,5 @@
+import { AuthenticatePage } from './../authenticate/authenticate';
+import { TabsPage } from './../tabs/tabs';
 import { SingletonService } from './../../services/singleton.service';
 import { HttpClient } from '@angular/common/http';
 import { ProfilePage } from './../profile/profile';
@@ -6,7 +8,7 @@ import { User } from './../../models/user';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, ToastController, LoadingCmp, LoadingController, Loading } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
-
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -29,7 +31,7 @@ export class HomePage {
   usertotals:any;
   loading: Loading;
 
-  constructor(private loadingCtrl: LoadingController, public toastCtrl: ToastController, public singleton:SingletonService,public navCtrl: NavController, private userService: UserService,public httpClient: HttpClient) {
+  constructor(private storage: Storage, private loadingCtrl: LoadingController, public toastCtrl: ToastController, public singleton:SingletonService,public navCtrl: NavController, private userService: UserService,public httpClient: HttpClient) {
     this.refreshUserTotals();
     this.refreshLastKweet();
   }
@@ -112,7 +114,9 @@ refreshTimeline(){
   }
 
   logout(){
-    
+    this.storage.set('bearer', null);
+    this.navCtrl.setRoot(AuthenticatePage);
+    //this.navCtrl.popToRoot();
   }
 
   postKweet(){
