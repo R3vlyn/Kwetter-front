@@ -13,6 +13,7 @@ export class SingletonService {
  private createKweetUrl: string = "kweet/create/";
  private trendsUrl: string = "hashtag/trends";
  private loginUrl: string = "authentication/login";
+ private validateTokenUrl: string = "authentication/validate";
  private profileUrl: string = "/profile";
  private followersUrl: string = "/followers";
  private setProfileUrl: string = "profile/";
@@ -43,6 +44,11 @@ export class SingletonService {
   loginCall():string{
     return this.baseUrl + this.loginUrl;
   }
+
+  validateTokenCall():string{
+    return this.baseUrl + this.validateTokenUrl;
+  }
+
   registerCall():string{
     return this.baseUrl + this.registerCall;
   }

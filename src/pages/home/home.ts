@@ -43,26 +43,26 @@ export class HomePage {
   }
 
 refreshTrends(){
-  this.showLoading()
+  //this.showLoading()
   this.trendsObservable = this.httpClient.get(this.singleton.trendsCall());
   this.trendsObservable
   .subscribe(data => {
     if(data instanceof Array){
-      this.loading.dismiss();
-      data.forEach(element => {
-      this.trends.push(element);
-
-    });}
-
+      //this.loading.dismiss();
+      this.trends = data;
+    //   data.forEach(element => {
+    //   this.trends.push(element);
+    // })
+    ;}
   })
 }
 
 refreshTimeline(){
-  this.showLoading()
+  //this.showLoading()
   this.timelineObservable = this.httpClient.get(this.singleton.timelineCall(this.userService.user));
   this.timelineObservable
   .subscribe(data => {
-    this.loading.dismiss();
+    //this.loading.dismiss();
     this.timeline = data;
     console.log('Timeline: ', data);
   })
@@ -109,6 +109,10 @@ refreshTimeline(){
       return true;
     }
     return false;
+  }
+
+  logout(){
+    
   }
 
   postKweet(){
