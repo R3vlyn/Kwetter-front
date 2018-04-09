@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
 import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
-
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the AuthenticatePage page.
  *
@@ -20,8 +20,9 @@ import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 })
 export class AuthenticatePage {
   loading: Loading;
-  credentials: any = {"username": "","password":""}
-  constructor(private loadingCtrl: LoadingController, private alertCtrl: AlertController, public singleton:SingletonService, public navCtrl: NavController, public navParams: NavParams,public httpClient: HttpClient, public userservice:UserService) {
+  credentials: any = { "username": "", "password": "" }
+  constructor(private storage: Storage, private loadingCtrl: LoadingController, private alertCtrl: AlertController, public singleton: SingletonService, public navCtrl: NavController, public navParams: NavParams, public httpClient: HttpClient, public userservice: UserService) {
+
   }
   showLoading() {
     this.loading = this.loadingCtrl.create({
@@ -41,8 +42,9 @@ export class AuthenticatePage {
     });
     alert.present();
   }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AuthenticatePage');
+
+  ionViewWillEnter(){
+    this.validate();
   }
 
   login() {
@@ -53,6 +55,7 @@ export class AuthenticatePage {
         var jwt = data.result.value;
         var tokenobj = this.parseJwt(jwt);
         this.userservice.bearer = jwt;
+        this.storage.set('bearer', jwt);
         this.userservice.user = tokenobj.sub;
         this.navCtrl.setRoot(TabsPage);
       } else {
@@ -64,10 +67,34 @@ export class AuthenticatePage {
       });
   }
 
-  parseJwt (token) {
-    token.replace('Bearer ','');
+  validate() {
+    this.storage.get('bearer').then((val) => {
+      if (val !== null) {
+        this.showLoading()
+        this.userservice.validate(val).subscribe(data => {
+          console.log("loginresult:" + data)
+          if (data.result.value.includes("valid")) {
+            var tokenobj = this.parseJwt(val);
+            this.userservice.user = tokenobj.sub;
+            this.loading.dismiss();
+            this.navCtrl.setRoot(TabsPage);
+          } else {
+            this.loading.dismiss();
+            this.storage.set('bearer', null);
+          }
+        },
+          error => {
+            this.loading.dismiss();
+            this.storage.set('bearer', null);
+          });
+      }
+    });
+  }
+
+  parseJwt(token) {
+    token.replace('Bearer ', '');
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace('-', '+').replace('_', '/');
     return JSON.parse(window.atob(base64));
-};
+  };
 }

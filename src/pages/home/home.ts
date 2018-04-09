@@ -1,12 +1,14 @@
+import { AuthenticatePage } from './../authenticate/authenticate';
+import { TabsPage } from './../tabs/tabs';
 import { SingletonService } from './../../services/singleton.service';
 import { HttpClient } from '@angular/common/http';
 import { ProfilePage } from './../profile/profile';
 import { UserService } from './../../services/user.service';
 import { User } from './../../models/user';
 import { Component, ViewChild } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, LoadingCmp, LoadingController, Loading } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
-
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -27,35 +29,52 @@ export class HomePage {
   lastkweet:any;
   selectedSegment: string = 'Dashboard';
   usertotals:any;
+  loading: Loading;
 
-  constructor(public toastCtrl: ToastController, public singleton:SingletonService,public navCtrl: NavController, private userService: UserService,public httpClient: HttpClient) {
-    this.trendsObservable = this.httpClient.get(singleton.trendsCall());
-    this.trendsObservable
-    .subscribe(data => {
-      if(data instanceof Array){
-        data.forEach(element => {
-        this.trends.push(element);
-      });}
-
-    })
-
-
-    this.timelineObservable = this.httpClient.get(singleton.timelineCall(this.userService.user));
-    this.timelineObservable
-    .subscribe(data => {
-      this.timeline = data;
-      console.log('Timeline: ', data);
-    })
+  constructor(private storage: Storage, private loadingCtrl: LoadingController, public toastCtrl: ToastController, public singleton:SingletonService,public navCtrl: NavController, private userService: UserService,public httpClient: HttpClient) {
     this.refreshUserTotals();
     this.refreshLastKweet();
-
   }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+
+refreshTrends(){
+  //this.showLoading()
+  this.trendsObservable = this.httpClient.get(this.singleton.trendsCall());
+  this.trendsObservable
+  .subscribe(data => {
+    if(data instanceof Array){
+      //this.loading.dismiss();
+      this.trends = data;
+    //   data.forEach(element => {
+    //   this.trends.push(element);
+    // })
+    ;}
+  })
+}
+
+refreshTimeline(){
+  //this.showLoading()
+  this.timelineObservable = this.httpClient.get(this.singleton.timelineCall(this.userService.user));
+  this.timelineObservable
+  .subscribe(data => {
+    //this.loading.dismiss();
+    this.timeline = data;
+    console.log('Timeline: ', data);
+  })
+}
 
   refreshLastKweet(){
     this.lastkweetObservable = this.httpClient.get(this.singleton.lastKweetsCall(1,this.userService.user));
     this.lastkweetObservable
     .subscribe(data => {
-      if(data instanceof Array)
+      if(data instanceof Array && data.length >0)
       {
         var date = new Date();
         var postdate = new Date(data[0].postDate);
@@ -76,6 +95,7 @@ export class HomePage {
       console.log('Usertotals: ', data);
     })
   }
+
   getUsers(): void {
     this.userService.getUsers().then(users => this.users = users);
   }
@@ -91,6 +111,12 @@ export class HomePage {
       return true;
     }
     return false;
+  }
+
+  logout(){
+    this.storage.set('bearer', null);
+    this.navCtrl.setRoot(AuthenticatePage);
+    //this.navCtrl.popToRoot();
   }
 
   postKweet(){

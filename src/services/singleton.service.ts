@@ -2,24 +2,25 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class SingletonService {
-  public baseUrl: string = "http://localhost:8080/Kwetter-1.0-SNAPSHOT/rest/";
+  private baseUrl: string = "http://localhost:8080/Kwetter-1.0-SNAPSHOT/rest/";
 
- public baseUserUrl: string = this.baseUrl + "user/";
+ private baseUserUrl: string = this.baseUrl + "user/";
 
-  public kweetSearchUrl: string = "kweet/search/";
-  public mentionsUrl: string = "kweet/mentions/";
-  public lastKweetsUrl: string = "kweet/last/";
-  public timelineUrl: string = "kweet/timeline/";
-  public createKweetUrl: string = "kweet/create/";
-  public trendsUrl: string = "hashtag/trends";
-  public loginUrl: string = "authentication/login";
-  public profileUrl: string = "/profile";
-  public followersUrl: string = "/followers";
-  public setProfileUrl: string = "profile/";
-  public followingUrl: string = "/following";
-  public userTotalsUrl: string = "byusername/";
-  public registerUrl: string = "kweet/register";
-  public followUserUrl: string = "/following/add/";
+ private kweetSearchUrl: string = "kweet/search/";
+ private mentionsUrl: string = "kweet/mentions/";
+ private lastKweetsUrl: string = "kweet/last/";
+ private timelineUrl: string = "kweet/timeline/";
+ private createKweetUrl: string = "kweet/create/";
+ private trendsUrl: string = "hashtag/trends";
+ private loginUrl: string = "authentication/login";
+ private validateTokenUrl: string = "authentication/validate";
+ private profileUrl: string = "/profile";
+ private followersUrl: string = "/followers";
+ private setProfileUrl: string = "profile/";
+ private followingUrl: string = "/following";
+ private userTotalsUrl: string = "byusername/";
+ private registerUrl: string = "kweet/register";
+ private followUserUrl: string = "/following/add/";
   public user: string
 
   searchKweetsCall(filter): string {
@@ -43,6 +44,11 @@ export class SingletonService {
   loginCall():string{
     return this.baseUrl + this.loginUrl;
   }
+
+  validateTokenCall():string{
+    return this.baseUrl + this.validateTokenUrl;
+  }
+
   registerCall():string{
     return this.baseUrl + this.registerCall;
   }

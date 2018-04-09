@@ -2,18 +2,22 @@
     <ion-navbar>
         <ion-searchbar #searchbar [(ngModel)]="filtertext" [showCancelButton]="true">
         </ion-searchbar>
+        <ion-buttons end>
+            <button ion-button round (click)="logout()">Logout</button>
+        </ion-buttons>
     </ion-navbar>
+
 </ion-header>
 
 <ion-content padding>
     <ion-segment [(ngModel)]="selectedSegment" color="primary">
-        <ion-segment-button value="Dashboard">
+        <ion-segment-button (click)="refreshUserTotals()" value="Dashboard">
             Dashboard
         </ion-segment-button>
-        <ion-segment-button value="Trends">
+        <ion-segment-button (click)="refreshTrends()" value="Trends">
             Trends
         </ion-segment-button>
-        <ion-segment-button value="Timeline">
+        <ion-segment-button (click)="refreshTimeline()" value="Timeline">
             Timeline
         </ion-segment-button>
     </ion-segment>

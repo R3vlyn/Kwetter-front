@@ -30,6 +30,11 @@ export class UserService {
       {"username":credentials.username,"password":credentials.password});
   }
 
+  validate(token) : Observable<any>{
+    return this.httpClient.post(this.singleton.validateTokenCall(),
+      {"Bearer":token});
+  }
+
   register(credentials){
     this.registerObservable = this.httpClient.post(this.singleton.registerCall(),
     {"username":credentials.username,"password":credentials.password});
