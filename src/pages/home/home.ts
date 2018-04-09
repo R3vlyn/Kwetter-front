@@ -55,7 +55,7 @@ export class HomePage {
     this.lastkweetObservable = this.httpClient.get(this.singleton.lastKweetsCall(1,this.userService.user));
     this.lastkweetObservable
     .subscribe(data => {
-      if(data instanceof Array)
+      if(data instanceof Array && data.length >0)
       {
         var date = new Date();
         var postdate = new Date(data[0].postDate);
