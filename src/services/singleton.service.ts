@@ -10,6 +10,8 @@ export class SingletonService {
  private mentionsUrl: string = "kweet/mentions/";
  private lastKweetsUrl: string = "kweet/last/";
  private timelineUrl: string = "kweet/timeline/";
+ private timelineControlledUrl: string = "kweet/timelinecontrolled/";
+
  private createKweetUrl: string = "kweet/create/";
  private trendsUrl: string = "hashtag/trends";
  private loginUrl: string = "authentication/login";
@@ -34,6 +36,10 @@ export class SingletonService {
   }
   timelineCall(username):string{
     return this.baseUrl + this.timelineUrl + username;
+  }
+
+  timelineControlledCall(username, page,amount):string{
+    return this.baseUrl + this.timelineControlledUrl + username + "/" + page + "/" + amount;
   }
   createKweetCall(username):string{
     return this.baseUrl + this.createKweetUrl + username;

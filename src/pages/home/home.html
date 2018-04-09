@@ -73,6 +73,9 @@
                 </ion-card>
             </ion-row>
         </ion-list>
+        <ion-infinite-scroll (ionInfinite)="loadMoreTimelineItems($event)">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
     </div>
     <ion-list *ngFor="let user of users">
         <ion-card [hidden]="!Match(user)" (click)="goToUser(user)">
