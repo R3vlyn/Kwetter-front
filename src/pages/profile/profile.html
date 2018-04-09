@@ -5,16 +5,17 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
     <ion-navbar>
         <ion-title>Profile</ion-title>
     </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-    <div *ngIf="user">
-        {{user.id}} {{user.name}} {{user.profilename}} {{user.image}}
+    <div *ngIf="profile" text-center>
+        <ion-item center>
+            <ion-avatar center>
+                <img [src]="profile.image">
+            </ion-avatar>
+        </ion-item>
     </div>
 </ion-content>
