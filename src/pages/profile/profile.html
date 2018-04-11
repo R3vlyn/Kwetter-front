@@ -12,21 +12,22 @@
 
 <ion-content padding>
     <div *ngIf="profile" text-center>
-        <ion-card>
-            <ion-item color="light">
-                <ion-avatar>
-                    <img [src]="profile.image">
-                </ion-avatar>
-            </ion-item>
-            <ion-list text-center>
-                <ion-row>
-                    <ion-label #profile_name class="no_margin" >{{profile.name}}</ion-label>
-                </ion-row>
-                <ion-row>
-                    <ion-label class="no_margin" float>{{username}}</ion-label>
-                </ion-row>
-            </ion-list>
-            
+        <ion-card color="light">
+            <div id="profile-header">
+                <ion-item>
+                    <ion-avatar>
+                        <img [src]="profile.image">
+                    </ion-avatar>
+                </ion-item>
+                <ion-list text-center>
+                    <ion-row>
+                        <ion-label id="profile_name" class="no_margin" >{{profile.name}}</ion-label>
+                    </ion-row>
+                    <ion-row>
+                        <ion-label id="profile_username" class="no_margin" float>@{{username}}</ion-label>
+                    </ion-row>
+                </ion-list>
+            </div>
         </ion-card>
     </div>
 </ion-content>

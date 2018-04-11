@@ -3,16 +3,29 @@
 
         ion-avatar > img {
             margin: auto;
-            width: 120px;
+            width: 125px;
             height: auto;
         }
 
        .no_margin {
             margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        #profile-header {
+            padding: 2em;
         }
 
         #profile_name {
-            font-size: 5em;
+            font-size: 4em;
+        }
+
+        #profile_username {
+            font-size: 1.5em;
+        }
+
+        ion-item, ion-list {
+            background-color: transparent
         }
     }
 }
