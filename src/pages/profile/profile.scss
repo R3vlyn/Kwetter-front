@@ -52,13 +52,17 @@
         }
 
         /* For browser */
-        ion-list {
+        #profile-header > ion-list {
             max-width: 500px;
             margin: auto;
         }
 
         ion-segment-button:hover {
-            background-color: #EFEFEF;
+            color: #992F2F;
+        }
+
+        .segment-content {
+            padding: 2.5em;
         }
     }
 }

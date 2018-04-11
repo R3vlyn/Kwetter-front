@@ -33,7 +33,7 @@
                         <ion-label id="profile_location" class="no_margin">{{profile.location}}</ion-label>
                     </ion-row>
                     <ion-row>
-                        <ion-label id="profile_website" class="no_margin"><a href="https://twitter.com/Twitter">{{profile.website}}</a></ion-label>
+                        <ion-label id="profile_website" class="no_margin"><a [href]="profile.website">{{profile.website}}</a></ion-label>
                     </ion-row>
                 </ion-list>
             </div>
@@ -43,5 +43,18 @@
             <ion-segment-button (click)="showFollowers()" value="Followers">Followers <span class="user-numbers-segment">{{userNumbers.followers}}</span></ion-segment-button>
             <ion-segment-button (click)="showKweets()" value="Kweets">Kweets <span class="user-numbers-segment">{{userNumbers.kweets}}</span></ion-segment-button>
         </ion-segment>
+    </div>
+    <div class="segment-content" *ngIf="selectedSegment === 'Kweets'">
+        <ion-list *ngFor="let kweet of kweets">
+            <ion-row>
+                <ion-card color="secondary">
+                    <ion-card-header>{{kweet.username}}</ion-card-header>
+                    <ion-card-content>
+                        <ion-row>{{kweet.message}}</ion-row>
+                        <ion-row>Date: {{kweet.postDate}}</ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-row>
+        </ion-list>
     </div>
 </ion-content>
