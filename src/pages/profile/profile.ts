@@ -54,11 +54,11 @@ export class ProfilePage {
         };
       } else {
         this.profile = {
-          name: username,
-          image: "https://www.watsonmartin.com/wp-content/uploads/2016/03/default-profile-picture.jpg",
-          location: "",
-          website: "",
-          bio: "",
+          name: "Mickael Koyan",
+          image: "http://www.nienesmoodlab.nl/uploads/1/3/1/5/13157012/7863622_orig.jpg",
+          location: "Cleveland",
+          website: "https://twitter.com/Twitter",
+          bio: "Michael Koyan has had articles published on various websites. He is an online banking specialist for a financial institution based in the Cleveland, Ohio area.",
         };
       }
     });

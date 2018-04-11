@@ -10,7 +10,7 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
     <div *ngIf="profile" text-center>
         <ion-card color="light">
             <div id="profile-header">
@@ -24,7 +24,16 @@
                         <ion-label id="profile_name" class="no_margin" >{{profile.name}}</ion-label>
                     </ion-row>
                     <ion-row>
-                        <ion-label id="profile_username" class="no_margin" float>@{{username}}</ion-label>
+                        <ion-label id="profile_username" class="no_margin">@{{username}}</ion-label>
+                    </ion-row>
+                    <ion-row text-wrap>
+                       <ion-label id="profile_bio" class="extra_padding">{{profile.bio}}</ion-label>
+                    </ion-row>
+                    <ion-row>
+                        <ion-label id="profile_location" class="no_margin">{{profile.location}}</ion-label>
+                    </ion-row>
+                    <ion-row>
+                        <ion-label id="profile_website" class="no_margin"><a href="https://twitter.com/Twitter">{{profile.website}}</a></ion-label>
                     </ion-row>
                 </ion-list>
             </div>

@@ -12,20 +12,43 @@
             padding: 0 !important;
         }
 
+        .extra_padding {
+            padding: 0.75em !important;
+        }
+
         #profile-header {
             padding: 2em;
         }
 
         #profile_name {
-            font-size: 4em;
+            font-size: 2.25em;
         }
 
         #profile_username {
-            font-size: 1.5em;
+            font-size: 1.25em;
         }
 
+        #profile_location {
+            font-size: 1.15em;
+        }
+
+        #profile_website > a {
+            font-size: 1.15em;
+            color: #ffffff;
+        }
+
+        .icon {
+            font-size: 50px;
+         }
+
         ion-item, ion-list {
-            background-color: transparent
+            background-color: transparent;
+        }
+
+        /* For browser */
+        ion-list {
+            max-width: 500px;
+            margin: auto;
         }
     }
 }
