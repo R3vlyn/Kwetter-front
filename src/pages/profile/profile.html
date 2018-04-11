@@ -38,5 +38,10 @@
                 </ion-list>
             </div>
         </ion-card>
+        <ion-segment *ngIf="userNumbers" [(ngModel)]="selectedSegment" color="light">
+            <ion-segment-button (click)="showFollowing()" value="Following">Following <span class="user-numbers-segment">{{userNumbers.following}}</span></ion-segment-button>
+            <ion-segment-button (click)="showFollowers()" value="Followers">Followers <span class="user-numbers-segment">{{userNumbers.followers}}</span></ion-segment-button>
+            <ion-segment-button (click)="showKweets()" value="Kweets">Kweets <span class="user-numbers-segment">{{userNumbers.kweets}}</span></ion-segment-button>
+        </ion-segment>
     </div>
 </ion-content>

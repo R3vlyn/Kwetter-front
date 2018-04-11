@@ -20,9 +20,13 @@ import { UserService } from './../../services/user.service';
 })
 export class ProfilePage {
 
-  username: string;
-  profile: any;
   profileObservable: Observable<any>;
+  userNumbersObservable: Observable<any>;
+
+  username: string;
+  userNumbers: any;
+  profile: any;
+
 
   constructor (
     public navCtrl: NavController,
@@ -37,11 +41,12 @@ export class ProfilePage {
       this.username = this.userService.user;
     }
 
-    this.fetchProfile(singletonService, this.username)
+    this.fetchProfile(this.username)
+    this.fetchUserNumbers(this.username)
   }
 
-  fetchProfile(singletonService, username) {
-    this.profileObservable = this.httpClient.get(singletonService.getProfileCall(username));
+  fetchProfile(username) {
+    this.profileObservable = this.httpClient.get(this.singletonService.getProfileCall(username));
     this.profileObservable.subscribe(data => {
       if (data) {
         const profileData = data[0];
@@ -62,6 +67,14 @@ export class ProfilePage {
         };
       }
     });
+  }
+
+  fetchUserNumbers(username) {
+    this.userNumbersObservable = this.httpClient.get(this.singletonService.getUserTotalsCall(username));
+    this.userNumbersObservable.subscribe(data => {
+      console.log(data);
+      this.userNumbers = data;
+    })
   }
 
   ionViewDidLoad() {
