@@ -1,9 +1,18 @@
 .ios, .md, .android {
     page-profile {
+
         ion-avatar > img {
             margin: auto;
             width: 120px;
             height: auto;
+        }
+
+       .no_margin {
+            margin: 0 !important;
+        }
+
+        #profile_name {
+            font-size: 5em;
         }
     }
 }

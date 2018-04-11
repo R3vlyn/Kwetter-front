@@ -20,6 +20,7 @@ import { UserService } from './../../services/user.service';
 })
 export class ProfilePage {
 
+  username: string;
   profile: any;
   profileObservable: Observable<any>;
 
@@ -30,14 +31,13 @@ export class ProfilePage {
     public httpClient: HttpClient,
     private userService: UserService) {
 
-    let username;
     if (this.navParams.data.user) {
-      username = this.navParams.data.user;
+      this.username = this.navParams.data.user;
     } else {
-      username = this.userService.user;
+      this.username = this.userService.user;
     }
 
-    this.fetchProfile(singletonService, username)
+    this.fetchProfile(singletonService, this.username)
   }
 
   fetchProfile(singletonService, username) {
@@ -54,7 +54,7 @@ export class ProfilePage {
         };
       } else {
         this.profile = {
-          name: "",
+          name: username,
           image: "https://www.watsonmartin.com/wp-content/uploads/2016/03/default-profile-picture.jpg",
           location: "",
           website: "",

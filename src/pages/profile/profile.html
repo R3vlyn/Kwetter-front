@@ -18,6 +18,15 @@
                     <img [src]="profile.image">
                 </ion-avatar>
             </ion-item>
+            <ion-list text-center>
+                <ion-row>
+                    <ion-label #profile_name class="no_margin" >{{profile.name}}</ion-label>
+                </ion-row>
+                <ion-row>
+                    <ion-label class="no_margin" float>{{username}}</ion-label>
+                </ion-row>
+            </ion-list>
+            
         </ion-card>
     </div>
 </ion-content>
