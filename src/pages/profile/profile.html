@@ -44,6 +44,32 @@
             <ion-segment-button (click)="showKweets()" value="Kweets">Kweets <span class="user-numbers-segment">{{userNumbers.kweets}}</span></ion-segment-button>
         </ion-segment>
     </div>
+    <div class="segment-content" *ngIf="selectedSegment === 'Following'">
+        <ion-list *ngFor="let kweet of kweets">
+            <ion-row>
+                <ion-card color="secondary">
+                    <ion-card-header>{{kweet.username}}</ion-card-header>
+                    <ion-card-content>
+                        <ion-row>{{kweet.message}}</ion-row>
+                        <ion-row>Date: {{kweet.postDate}}</ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-row>
+        </ion-list>
+    </div>
+    <div class="segment-content" *ngIf="selectedSegment === 'Followers'">
+        <ion-list *ngFor="let kweet of kweets">
+            <ion-row>
+                <ion-card color="secondary">
+                    <ion-card-header>{{kweet.username}}</ion-card-header>
+                    <ion-card-content>
+                        <ion-row>{{kweet.message}}</ion-row>
+                        <ion-row>Date: {{kweet.postDate}}</ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-row>
+        </ion-list>
+    </div>
     <div class="segment-content" *ngIf="selectedSegment === 'Kweets'">
         <ion-list *ngFor="let kweet of kweets">
             <ion-row>
