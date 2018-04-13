@@ -1,3 +1,4 @@
+import { UsersPage } from './../users/users';
 import { AuthenticatePage } from './../authenticate/authenticate';
 import { TabsPage } from './../tabs/tabs';
 import { SingletonService } from './../../services/singleton.service';
@@ -129,9 +130,16 @@ loadMoreTimelineItems(infiniteScroll){
     //this.navCtrl.popToRoot();
   }
 
-goToFollowers(){}
-goToFollowing(){}
-goToKweets(){}
+goToFollowers(){
+  this.navCtrl.push(UsersPage, { type: "followers", user: this.userService.user });
+}
+goToFollowing(){
+  this.navCtrl.push(UsersPage, { type: "following", user: this.userService.user });
+}
+goToKweets(){
+  this.navCtrl.push(TimelinePage, {user: this.userService.user });
+
+}
 
   postKweet(){
     this.kweetPostObservable = this.httpClient.post(this.singleton.createKweetCall(this.userService.user),

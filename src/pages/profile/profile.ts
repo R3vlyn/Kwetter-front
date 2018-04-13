@@ -79,7 +79,7 @@ export class ProfilePage {
   fetchProfile(username) {
     this.profileObservable = this.httpClient.get(this.singletonService.getProfileCall(username));
     this.profileObservable.subscribe(data => {
-      if (data) {
+      if (data && data[0]) {
         const profileData = data[0];
         this.profile = {
           name: profileData.name,

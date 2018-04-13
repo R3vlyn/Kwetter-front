@@ -1,3 +1,4 @@
+import { UsersPage } from './../pages/users/users';
 import { UserService } from './../services/user.service';
 import { AuthenticatePage } from './../pages/authenticate/authenticate';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -19,6 +20,7 @@ import { IonicStorageModule } from '@ionic/storage';
   declarations: [
     MyApp,
     ProfilePage,
+    UsersPage,
     HomePage,
     TabsPage,
     AuthenticatePage
@@ -34,6 +36,7 @@ import { IonicStorageModule } from '@ionic/storage';
     AuthenticatePage,
     MyApp,
   ProfilePage,
+  UsersPage,
     HomePage,
     TabsPage
   ],
