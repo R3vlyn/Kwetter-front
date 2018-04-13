@@ -89,6 +89,7 @@ export class ProfilePage {
           bio: profileData.bio,
         };
       } else {
+        // For testing
         this.profile = {
           name: "Mickael Koyan",
           image: "http://www.nienesmoodlab.nl/uploads/1/3/1/5/13157012/7863622_orig.jpg",

@@ -1,10 +1,23 @@
 .ios, .md, .android {
     page-profile {
 
+        #wrapper {
+            height: 100%;
+            color: #ffffff;
+        }
+
         ion-avatar > img {
             margin: auto;
             width: 125px;
             height: auto;
+        }
+
+        ion-segment {
+            background-color: #ffffff;
+        }
+
+        ion-icon:before {
+            font-size: 0.4em !important;
         }
 
        .no_margin {
