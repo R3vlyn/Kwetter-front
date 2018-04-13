@@ -88,13 +88,11 @@ loadMoreTimelineItems(infiniteScroll){
     .subscribe(data => {
       if(data instanceof Array && data.length >0)
       {
+        this.lastkweet = data[0];
         var date = new Date();
         var postdate = new Date(data[0].postDate);
         var hours = Math.ceil(Math.abs(date.getTime() - postdate.getTime()) / 36e5);
-        console.log("current time = " + date );
-        console.log("Post time = " + postdate );
-        this.lastkweet = {timeago: hours, message: data[0].message};
-        console.log('Timeline: ', data);
+        this.lastkweet.timeago = hours;
       }
     })
   }
