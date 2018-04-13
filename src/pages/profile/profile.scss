@@ -2,9 +2,10 @@
     page-profile {
 
         #wrapper {
-            height: 100%;
+            height: 93%;
             color: #ffffff;
-            background: #F53D3D;
+            background: #27627F;
+            display: flex;
         }
 
         ion-avatar > img {
@@ -17,10 +18,6 @@
             background-color: #ffffff;
         }
 
-        ion-icon:before {
-            font-size: 0.4em !important;
-        }
-
        .no_margin {
             margin: 0 !important;
             padding: 0 !important;
@@ -28,6 +25,16 @@
 
         .extra_padding {
             padding: 0.75em !important;
+        }
+
+        #create-profile:before {
+            font-size: 0.75em !important;
+            padding: 0.2em;
+            position: absolute;
+        }
+
+        #create-profile:hover {
+            cursor: pointer;
         }
 
         #profile-header {
@@ -73,7 +80,7 @@
         }
 
         ion-segment-button:hover {
-            color: #992F2F;
+            color: #2C4248;
         }
 
         .segment-content {
