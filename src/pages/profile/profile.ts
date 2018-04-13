@@ -20,8 +20,20 @@ import { UserService } from './../../services/user.service';
 })
 export class ProfilePage {
 
-  profile: any;
   profileObservable: Observable<any>;
+  userNumbersObservable: Observable<any>;
+  followingObservable: Observable<any>;
+  followersObservable: Observable<any>;
+  kweetsObservable: Observable<any>;
+
+  username: string;
+  userNumbers: any;
+  profile: any;
+
+  following: any;
+  followers: any;
+  kweets: any;
+
 
   constructor (
     public navCtrl: NavController,
@@ -30,18 +42,42 @@ export class ProfilePage {
     public httpClient: HttpClient,
     private userService: UserService) {
 
-    let username;
     if (this.navParams.data.user) {
-      username = this.navParams.data.user;
+      this.username = this.navParams.data.user;
     } else {
-      username = this.userService.user;
+      this.username = this.userService.user;
     }
 
-    this.fetchProfile(singletonService, username)
+    this.fetchProfile(this.username)
+    this.fetchUserNumbers(this.username)
   }
 
-  fetchProfile(singletonService, username) {
-    this.profileObservable = this.httpClient.get(singletonService.getProfileCall(username));
+  showFollowing() {
+    this.followingObservable = this.httpClient.get(this.singletonService.getFollowingCall(this.username));
+    this.followingObservable.subscribe(data => {
+      console.log(data);
+      this.following = data;
+    });
+  }
+
+  showFollowers() {
+    this.followersObservable = this.httpClient.get(this.singletonService.getFollowersCall(this.username));
+    this.followersObservable.subscribe(data => {
+      console.log(data);
+      this.followers = data;
+    });
+  }
+
+  showKweets() {
+    this.kweetsObservable = this.httpClient.get(this.singletonService.searchKweetsCall(this.username));
+    this.kweetsObservable.subscribe(data => {
+      console.log(data);
+      this.kweets = data;
+    });
+  }
+
+  fetchProfile(username) {
+    this.profileObservable = this.httpClient.get(this.singletonService.getProfileCall(username));
     this.profileObservable.subscribe(data => {
       if (data) {
         const profileData = data[0];
@@ -54,14 +90,22 @@ export class ProfilePage {
         };
       } else {
         this.profile = {
-          name: "",
-          image: "https://www.watsonmartin.com/wp-content/uploads/2016/03/default-profile-picture.jpg",
-          location: "",
-          website: "",
-          bio: "",
+          name: "Mickael Koyan",
+          image: "http://www.nienesmoodlab.nl/uploads/1/3/1/5/13157012/7863622_orig.jpg",
+          location: "Cleveland",
+          website: "https://twitter.com/Twitter",
+          bio: "Michael Koyan has had articles published on various websites. He is an online banking specialist for a financial institution based in the Cleveland, Ohio area.",
         };
       }
     });
+  }
+
+  fetchUserNumbers(username) {
+    this.userNumbersObservable = this.httpClient.get(this.singletonService.getUserTotalsCall(username));
+    this.userNumbersObservable.subscribe(data => {
+      console.log(data);
+      this.userNumbers = data;
+    })
   }
 
   ionViewDidLoad() {

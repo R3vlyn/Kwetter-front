@@ -10,14 +10,77 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
     <div *ngIf="profile" text-center>
-        <ion-card>
-            <ion-item color="light">
-                <ion-avatar>
-                    <img [src]="profile.image">
-                </ion-avatar>
-            </ion-item>
+        <ion-card color="light">
+            <div id="profile-header">
+                <ion-item>
+                    <ion-avatar>
+                        <img [src]="profile.image">
+                    </ion-avatar>
+                </ion-item>
+                <ion-list text-center>
+                    <ion-row>
+                        <ion-label id="profile_name" class="no_margin" >{{profile.name}}</ion-label>
+                    </ion-row>
+                    <ion-row>
+                        <ion-label id="profile_username" class="no_margin">@{{username}}</ion-label>
+                    </ion-row>
+                    <ion-row text-wrap>
+                       <ion-label id="profile_bio" class="extra_padding">{{profile.bio}}</ion-label>
+                    </ion-row>
+                    <ion-row>
+                        <ion-label id="profile_location" class="no_margin">{{profile.location}}</ion-label>
+                    </ion-row>
+                    <ion-row>
+                        <ion-label id="profile_website" class="no_margin"><a [href]="profile.website">{{profile.website}}</a></ion-label>
+                    </ion-row>
+                </ion-list>
+            </div>
         </ion-card>
+        <ion-segment *ngIf="userNumbers" [(ngModel)]="selectedSegment" color="light">
+            <ion-segment-button (click)="showFollowing()" value="Following">Following <span class="user-numbers-segment">{{userNumbers.following}}</span></ion-segment-button>
+            <ion-segment-button (click)="showFollowers()" value="Followers">Followers <span class="user-numbers-segment">{{userNumbers.followers}}</span></ion-segment-button>
+            <ion-segment-button (click)="showKweets()" value="Kweets">Kweets <span class="user-numbers-segment">{{userNumbers.kweets}}</span></ion-segment-button>
+        </ion-segment>
+    </div>
+    <div class="segment-content" *ngIf="selectedSegment === 'Following'">
+        <ion-list *ngFor="let kweet of kweets">
+            <ion-row>
+                <ion-card color="secondary">
+                    <ion-card-header>{{kweet.username}}</ion-card-header>
+                    <ion-card-content>
+                        <ion-row>{{kweet.message}}</ion-row>
+                        <ion-row>Date: {{kweet.postDate}}</ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-row>
+        </ion-list>
+    </div>
+    <div class="segment-content" *ngIf="selectedSegment === 'Followers'">
+        <ion-list *ngFor="let kweet of kweets">
+            <ion-row>
+                <ion-card color="secondary">
+                    <ion-card-header>{{kweet.username}}</ion-card-header>
+                    <ion-card-content>
+                        <ion-row>{{kweet.message}}</ion-row>
+                        <ion-row>Date: {{kweet.postDate}}</ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-row>
+        </ion-list>
+    </div>
+    <div class="segment-content" *ngIf="selectedSegment === 'Kweets'">
+        <ion-list *ngFor="let kweet of kweets">
+            <ion-row>
+                <ion-card color="secondary">
+                    <ion-card-header>{{kweet.username}}</ion-card-header>
+                    <ion-card-content>
+                        <ion-row>{{kweet.message}}</ion-row>
+                        <ion-row>Date: {{kweet.postDate}}</ion-row>
+                    </ion-card-content>
+                </ion-card>
+            </ion-row>
+        </ion-list>
     </div>
 </ion-content>
