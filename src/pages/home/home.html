@@ -63,13 +63,13 @@
             </ion-card>
         </ion-card>
         <ion-segment *ngIf="usertotals" color="secondary">
-            <ion-segment-button (click)="showFollowing()" value="Dashboard">
+            <ion-segment-button (click)="goToFollowers()" value="Dashboard">
                 Following {{usertotals.following}}
             </ion-segment-button>
-            <ion-segment-button (click)="showFollowers()" value="Trends">
+            <ion-segment-button (click)="goToFollowing()" value="Trends">
                 Followers {{usertotals.followers}}
             </ion-segment-button>
-            <ion-segment-button (click)="showKweets()" value="Timeline">
+            <ion-segment-button (click)="goToKweets()" value="Timeline">
                 Kweets {{usertotals.kweets}}
             </ion-segment-button>
         </ion-segment>
