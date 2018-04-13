@@ -129,6 +129,10 @@ loadMoreTimelineItems(infiniteScroll){
     //this.navCtrl.popToRoot();
   }
 
+goToFollowers(){}
+goToFollowing(){}
+goToKweets(){}
+
   postKweet(){
     this.kweetPostObservable = this.httpClient.post(this.singleton.createKweetCall(this.userService.user),
     {"message":this.newKweetmessage});
