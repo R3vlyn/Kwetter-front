@@ -1,3 +1,4 @@
+import { UsersPage } from './../users/users';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from './../../models/user';
@@ -5,6 +6,7 @@ import { SingletonService } from './../../services/singleton.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { UserService } from './../../services/user.service';
+import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the ProfilePage page.
@@ -42,6 +44,7 @@ export class ProfilePage {
     public navParams: NavParams,
     public singletonService: SingletonService,
     public httpClient: HttpClient,
+    public artCtrl: AlertController,
     private userService: UserService) {
 
     if (this.navParams.data.user) {
@@ -57,7 +60,7 @@ export class ProfilePage {
   }
 
   showProfileCreation() {
-    
+
   }
 
   showFollowing() {
@@ -116,6 +119,20 @@ export class ProfilePage {
       this.userNumbers = data;
     })
   }
+
+  goToFollowing() {
+    this.navCtrl.push(UsersPage, { type: "following", user: this.username });
+  }
+
+  goToFollowers() {
+    this.navCtrl.push(UsersPage, { type: "followers", user: this.username });
+  }
+
+  goToKweets() {
+    //this.navCtrl.push(TimelinePage, {user: this.username });
+  }
+
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');

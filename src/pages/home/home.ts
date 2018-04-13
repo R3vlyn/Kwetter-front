@@ -137,7 +137,7 @@ goToFollowing(){
   this.navCtrl.push(UsersPage, { type: "following", user: this.userService.user });
 }
 goToKweets(){
-  this.navCtrl.push(TimelinePage, {user: this.userService.user });
+  //this.navCtrl.push(TimelinePage, {user: this.userService.user });
 
 }
 

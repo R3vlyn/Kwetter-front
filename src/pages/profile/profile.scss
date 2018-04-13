@@ -27,12 +27,6 @@
             padding: 0.75em !important;
         }
 
-        #create-profile:before {
-            font-size: 0.75em !important;
-            padding: 0.2em;
-            position: absolute;
-        }
-
         #create-profile:hover {
             cursor: pointer;
         }
@@ -57,6 +51,11 @@
         #profile_website > a {
             font-size: 1.15em;
             color: #ffffff;
+        }
+
+        .own-profile:hover {
+          cursor: pointer;
+          opacity: 0.8;
         }
 
         .icon {
@@ -88,4 +87,3 @@
         }
     }
 }
-
