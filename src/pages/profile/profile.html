@@ -13,6 +13,7 @@
 <ion-content>
     <div *ngIf="profile" text-center>
         <div id="wrapper" class="fixed-content">
+            <ion-icon *ngIf="otherProfile" (click)="showProfileCreation()" id="create-profile" name="ios-create-outline"></ion-icon>
             <div id="profile-header">
                 <ion-item no-lines>
                     <ion-avatar>
@@ -30,10 +31,10 @@
                        <ion-label id="profile_bio" class="extra_padding">{{profile.bio}}</ion-label>
                     </ion-row>
                     <ion-row>
-                        <ion-label id="profile_location" class="no_margin"><ion-icon name="ios-pin-outline"></ion-icon>  {{profile.location}}</ion-label>
+                        <ion-label id="profile_location" class="no_margin">{{profile.location}}</ion-label>
                     </ion-row>
                     <ion-row>
-                        <ion-label id="profile_website" class="no_margin"><ion-icon name="ios-link-outline"></ion-icon>  <a [href]="profile.website">{{profile.website}}</a></ion-label>
+                        <ion-label id="profile_website" class="no_margin"><a [href]="profile.website">{{profile.website}}</a></ion-label>
                     </ion-row>
                 </ion-list>
             </div>

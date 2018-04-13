@@ -34,6 +34,8 @@ export class ProfilePage {
   followers: any;
   kweets: any;
 
+  otherProfile: any
+
 
   constructor (
     public navCtrl: NavController,
@@ -44,12 +46,18 @@ export class ProfilePage {
 
     if (this.navParams.data.user) {
       this.username = this.navParams.data.user;
+      this.otherProfile = "true";
     } else {
       this.username = this.userService.user;
+      this.otherProfile = "false";
     }
 
     this.fetchProfile(this.username)
     this.fetchUserNumbers(this.username)
+  }
+
+  showProfileCreation() {
+    
   }
 
   showFollowing() {
