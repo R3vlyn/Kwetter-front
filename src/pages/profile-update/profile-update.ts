@@ -44,10 +44,10 @@ export class ProfileUpdatePage {
   }
 
   saveProfile() {
-    console.log('Post');
     this.profileObservable =  this.httpClient.post(this.singletonService.setProfileCall(this.username), this.profile);
     this.profileObservable.subscribe(data => {
       console.log(data);
+      this.navCtrl.pop();
     });
   }
 

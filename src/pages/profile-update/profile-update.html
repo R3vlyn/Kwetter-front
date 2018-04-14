@@ -17,9 +17,25 @@
   <form *ngIf='profile && username' (ngSubmit)='saveProfile()'>
     <ion-item>
       <ion-avatar>
-        <img [src]='profile.image'/>s
-      </ion-avatar>
+        <img [src]='profile.image'/>
+      </ion-avatar><br>
       <input type='file' (change)='onFileChange($event)' accept='.png,.jpg,.svg'>
+    </ion-item>
+    <ion-item>
+      <ion-label>Profile Name</ion-label>
+      <ion-input type="text" [(ngModel)]="profile.name" name="profileName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Biography</ion-label>
+      <ion-textarea [(ngModel)]="profile.bio" name="biography"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>Location</ion-label>
+      <ion-input type="text" [(ngModel)]="profile.location" name="location"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Website</ion-label>
+      <ion-input type="text" [(ngModel)]="profile.website" name="website"></ion-input>
     </ion-item>
     <button ion-button type="submit" block>Save</button>
   </form>
