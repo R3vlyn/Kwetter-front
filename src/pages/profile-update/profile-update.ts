@@ -23,7 +23,9 @@ import { AlertController } from 'ionic-angular';
 })
 export class ProfileUpdatePage {
 
+  profileObservable: Observable<any>;
   profile: any;
+  username: any;
 
   constructor(
     public navCtrl: NavController,
@@ -33,7 +35,8 @@ export class ProfileUpdatePage {
     public artCtrl: AlertController,
     private userService: UserService) {
 
-    this.profile = this.navParams.data;
+    this.profile = this.navParams.data.profile;
+    this.username = this.navParams.data.username;
   }
 
   ionViewDidLoad() {
@@ -41,7 +44,11 @@ export class ProfileUpdatePage {
   }
 
   saveProfile() {
-
+    console.log('Post');
+    this.profileObservable =  this.httpClient.post(this.singletonService.setProfileCall(this.username), this.profile);
+    this.profileObservable.subscribe(data => {
+      console.log(data);
+    });
   }
 
   onFileChange(event) {
@@ -50,7 +57,6 @@ export class ProfileUpdatePage {
     if (fileList.length > 0) {
         let file: File = fileList[0];
         this.toBase64(file, (base64) => {
-          console.log(base64);
           this.profile.image = base64;
         })
     }

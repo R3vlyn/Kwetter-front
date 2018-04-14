@@ -14,12 +14,13 @@
 
 
 <ion-content padding>
-  <form *ngIf='profile' (ngSubmit)='saveProfile()'>
+  <form *ngIf='profile && username' (ngSubmit)='saveProfile()'>
     <ion-item>
       <ion-avatar>
-        <img [src]='profile.image'/>
+        <img [src]='profile.image'/>s
       </ion-avatar>
       <input type='file' (change)='onFileChange($event)' accept='.png,.jpg,.svg'>
     </ion-item>
+    <button ion-button type="submit" block>Save</button>
   </form>
 </ion-content>

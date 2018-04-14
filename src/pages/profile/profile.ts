@@ -60,10 +60,6 @@ export class ProfilePage {
     this.fetchUserNumbers(this.username)
   }
 
-  showProfileCreation() {
-
-  }
-
   showFollowing() {
     this.followingObservable = this.httpClient.get(this.singletonService.getFollowingCall(this.username));
     this.followingObservable.subscribe(data => {
@@ -91,6 +87,7 @@ export class ProfilePage {
   fetchProfile(username) {
     this.profileObservable = this.httpClient.get(this.singletonService.getProfileCall(username));
     this.profileObservable.subscribe(data => {
+      console.log(data);
       if (data && data[0]) {
         const profileData = data[0];
         this.profile = {
@@ -122,7 +119,7 @@ export class ProfilePage {
   }
 
   goToUpdateProfile() {
-    this.navCtrl.push(ProfileUpdatePage, this.profile);
+    this.navCtrl.push(ProfileUpdatePage, { profile: this.profile, username: this.username });
   }
 
   goToFollowing() {
