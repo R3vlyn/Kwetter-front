@@ -50,7 +50,6 @@ export class AuthenticatePage {
   login() {
     this.showLoading()
     this.userservice.login(this.credentials).subscribe(data => {
-      console.log("loginresult:" + data)
       if (data.result.value.includes("Bearer")) {
         var jwt = data.result.value;
         var tokenobj = this.parseJwt(jwt);

@@ -16,7 +16,6 @@ import { AlertController } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html'
@@ -32,13 +31,10 @@ export class ProfilePage {
   username: string;
   userNumbers: any;
   profile: any;
-
   following: any;
   followers: any;
   kweets: any;
-
-  otherProfile: any
-
+  otherProfile: any;
 
   constructor (
     public navCtrl: NavController,
@@ -48,6 +44,7 @@ export class ProfilePage {
     public artCtrl: AlertController,
     private userService: UserService) {
 
+    console.log("Username profile: " + this.userService.user);
     if (this.navParams.data.user) {
       this.username = this.navParams.data.user;
       this.otherProfile = "true";
@@ -85,27 +82,27 @@ export class ProfilePage {
   }
 
   fetchProfile(username) {
+    console.log('username: ' + username);
     this.profileObservable = this.httpClient.get(this.singletonService.getProfileCall(username));
     this.profileObservable.subscribe(data => {
       console.log(data);
-      if (data && data[0]) {
-        const profileData = data[0];
+      if (data !== null) {
         this.profile = {
-          name: profileData.name,
-          image: "https://www.watsonmartin.com/wp-content/uploads/2016/03/default-profile-picture.jpg",
-          location: profileData.location,
-          website: profileData.website,
-          bio: profileData.bio,
+          name: data.name,
+          image: data.image,
+          location: data.location,
+          website: data.website,
+          bio: data.bio,
         };
       } else {
-        // For testing
         this.profile = {
-          name: "Mickael Koyan",
-          image: "http://www.nienesmoodlab.nl/uploads/1/3/1/5/13157012/7863622_orig.jpg",
-          location: "Cleveland",
-          website: "https://twitter.com/Twitter",
-          bio: "Michael Koyan has had articles published on various websites. He is an online banking specialist for a financial institution based in the Cleveland, Ohio area.",
+          name: username,
+          image: 'https://www.watsonmartin.com/wp-content/uploads/2016/03/default-profile-picture.jpg',
+          location: "",
+          website: "",
+          bio: "",
         };
+        this.goToUpdateProfile();
       }
     });
   }
@@ -132,9 +129,5 @@ export class ProfilePage {
 
   goToKweets() {
     //this.navCtrl.push(TimelinePage, {user: this.username });
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ProfilePage');
   }
 }

@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
+import { AlertController } from 'ionic-angular';
 import { UsersPage } from './../users/users';
 import { User } from './../../models/user';
 import { SingletonService } from './../../services/singleton.service';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { UserService } from './../../services/user.service';
-import { AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the ProfileUpdatePage page.
@@ -32,7 +31,7 @@ export class ProfileUpdatePage {
     public navParams: NavParams,
     public singletonService: SingletonService,
     public httpClient: HttpClient,
-    public artCtrl: AlertController,
+    public alertCtrl: AlertController,
     private userService: UserService) {
 
     this.profile = this.navParams.data.profile;
@@ -47,7 +46,11 @@ export class ProfileUpdatePage {
     this.profileObservable =  this.httpClient.post(this.singletonService.setProfileCall(this.username), this.profile);
     this.profileObservable.subscribe(data => {
       console.log(data);
-      this.navCtrl.pop();
+      if (data.succes) {
+        this.navCtrl.pop();
+      } else {
+        this.showAlert(data.result.value);
+      }
     });
   }
 
@@ -68,5 +71,14 @@ export class ProfileUpdatePage {
       _cb(reader.result);
     }
     reader.readAsDataURL(file);
+  }
+
+  showAlert(message) {
+    const alert = this.alertCtrl.create({
+      title: 'Invalid',
+      subTitle: message,
+      buttons: ['Close']
+    });
+    alert.present();
   }
 }

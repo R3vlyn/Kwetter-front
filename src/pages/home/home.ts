@@ -37,6 +37,8 @@ export class HomePage {
   constructor(private storage: Storage, private loadingCtrl: LoadingController, public toastCtrl: ToastController, public singleton:SingletonService,public navCtrl: NavController, private userService: UserService,public httpClient: HttpClient) {
     this.refreshUserTotals();
     this.refreshLastKweet();
+
+    console.log("Username home: " + this.userService.user);
   }
 
   showLoading() {
