@@ -1,4 +1,5 @@
 import { UsersPage } from './../users/users';
+import { ProfileUpdatePage } from './../profile-update/profile-update';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from './../../models/user';
@@ -18,7 +19,7 @@ import { AlertController } from 'ionic-angular';
 @IonicPage()
 @Component({
   selector: 'page-profile',
-  templateUrl: 'profile.html',
+  templateUrl: 'profile.html'
 })
 export class ProfilePage {
 
@@ -120,6 +121,10 @@ export class ProfilePage {
     })
   }
 
+  goToUpdateProfile() {
+    this.navCtrl.push(ProfileUpdatePage, this.profile);
+  }
+
   goToFollowing() {
     this.navCtrl.push(UsersPage, { type: "following", user: this.username });
   }
@@ -131,8 +136,6 @@ export class ProfilePage {
   goToKweets() {
     //this.navCtrl.push(TimelinePage, {user: this.username });
   }
-
-
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');

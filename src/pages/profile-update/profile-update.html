@@ -1,0 +1,25 @@
+<!--
+  Generated template for the ProfileUpdatePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Update Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form *ngIf='profile' (ngSubmit)='saveProfile()'>
+    <ion-item>
+      <ion-avatar>
+        <img [src]='profile.image'/>
+      </ion-avatar>
+      <input type='file' (change)='onFileChange($event)' accept='.png,.jpg,.svg'>
+    </ion-item>
+  </form>
+</ion-content>

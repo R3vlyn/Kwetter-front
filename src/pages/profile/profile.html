@@ -13,11 +13,11 @@
 <ion-content>
     <div *ngIf="profile" text-center>
         <div id="wrapper" class="fixed-content">
-            <ion-icon *ngIf="otherProfile" (click)="showProfileCreation()" id="create-profile" name="ios-create-outline"></ion-icon>
+            <ion-icon *ngIf="otherProfile" (click)="goToUpdateProfile()" id="update-profile" name="ios-create-outline"></ion-icon>
             <div id="profile-header">
                 <ion-item no-lines>
                     <ion-avatar>
-                        <img [src]="profile.image"/>
+                        <img alt='Embedded Image' [src]='profile.image'/>
                     </ion-avatar>
                 </ion-item>
                 <ion-list text-center>

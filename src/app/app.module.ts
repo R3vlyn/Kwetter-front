@@ -7,6 +7,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { ProfilePage } from '../pages/profile/profile';
+import { ProfileUpdatePage } from '../pages/profile-update/profile-update';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
@@ -23,7 +24,8 @@ import { IonicStorageModule } from '@ionic/storage';
     UsersPage,
     HomePage,
     TabsPage,
-    AuthenticatePage
+    AuthenticatePage,
+    ProfileUpdatePage
   ],
   imports: [
     HttpClientModule,
@@ -35,10 +37,11 @@ import { IonicStorageModule } from '@ionic/storage';
   entryComponents: [
     AuthenticatePage,
     MyApp,
-  ProfilePage,
-  UsersPage,
+    ProfilePage,
+    UsersPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    ProfileUpdatePage
   ],
   providers: [
     UserService,

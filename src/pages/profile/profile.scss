@@ -85,5 +85,15 @@
         .segment-content {
             padding: 2.5em;
         }
+
+        #update-profile {
+          padding: 0.25em;
+          font-size: 2.75em;
+          position: absolute;
+        }
+
+        #update-profile:hover {
+          cursor: pointer;
+        }
     }
 }
