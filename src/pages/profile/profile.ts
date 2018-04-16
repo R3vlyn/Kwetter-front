@@ -1,7 +1,7 @@
 import { UsersPage } from './../users/users';
 import { ProfileUpdatePage } from './../profile-update/profile-update';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
 import { User } from './../../models/user';
 import { SingletonService } from './../../services/singleton.service';
 import { HttpClient } from '@angular/common/http';
@@ -28,6 +28,8 @@ export class ProfilePage {
   followersObservable: Observable<any>;
   kweetsObservable: Observable<any>;
 
+  loading: Loading;
+
   username: string;
   userNumbers: any;
   profile: any;
@@ -42,20 +44,35 @@ export class ProfilePage {
     public singletonService: SingletonService,
     public httpClient: HttpClient,
     public artCtrl: AlertController,
-    private userService: UserService) {
-
-    console.log("Username profile: " + this.userService.user);
-    if (this.navParams.data.user) {
-      this.username = this.navParams.data.user;
-      this.otherProfile = "true";
-    } else {
-      this.username = this.userService.user;
-      this.otherProfile = "false";
-    }
-
-    this.fetchProfile(this.username)
-    this.fetchUserNumbers(this.username)
+    private userService: UserService,
+    private loadingCtrl: LoadingController) {
   }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+
+ionViewWillEnter(){
+  console.log("Username profile: " + this.userService.user);
+  if (this.navParams.data.user) {
+    this.username = this.navParams.data.user;
+    this.otherProfile = "true";
+    this.fetchProfile(this.username);
+    this.fetchUserNumbers(this.username)
+  } else {
+    if(this.username !== this.userService.user){
+      this.username = this.userService.user;
+      this.fetchProfile(this.username);
+      this.fetchUserNumbers(this.username);
+    }
+    this.otherProfile = "false";
+  }
+
+}
 
   showFollowing() {
     this.followingObservable = this.httpClient.get(this.singletonService.getFollowingCall(this.username));
@@ -83,6 +100,7 @@ export class ProfilePage {
 
   fetchProfile(username) {
     console.log('username: ' + username);
+    this.showLoading();
     this.profileObservable = this.httpClient.get(this.singletonService.getProfileCall(username));
     this.profileObservable.subscribe(data => {
       console.log(data);
@@ -94,6 +112,7 @@ export class ProfilePage {
           website: data.website,
           bio: data.bio,
         };
+        this.loading.dismiss();
       } else {
         this.profile = {
           name: username,
@@ -102,6 +121,7 @@ export class ProfilePage {
           website: "",
           bio: "",
         };
+        this.loading.dismiss();
         this.goToUpdateProfile();
       }
     });
