@@ -116,7 +116,7 @@ export class SearchPage {
   calculateTimeAgo(postDate) {
       var date = new Date();
       var postdate = new Date(postDate);
-      var hours = Math.abs(date.getTime() - postdate.getTime()) / 36e5;
+      var hours = Math.abs(date.getTime() - postdate.getTime()) / 36e6;
       if (hours < 1) {
           return Math.ceil(hours * 60) + 'm'
       }

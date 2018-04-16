@@ -11,8 +11,15 @@
         .follow-button {
             float: left !important;
             position: absolute !important;
-            width: 6em !important;
+            width: 7em !important;
             margin: 1.5em !important;
+            background-color: white;
+            color: #424242;
+        }
+
+        .follow-button:hover {
+            background-color: white;
+            color: #424242;
         }
 
         ion-avatar > img {
