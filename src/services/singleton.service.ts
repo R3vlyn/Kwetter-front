@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class SingletonService {
-  private baseUrl: string = "http://192.168.24.74:8080/Kwetter-1.0-SNAPSHOT/rest/";
+  private baseUrl: string = "http://localhost:8080/Kwetter-1.0-SNAPSHOT/rest/";
 
  private baseUserUrl: string = this.baseUrl + "user/";
 
