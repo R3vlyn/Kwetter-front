@@ -35,12 +35,8 @@ export class UserService {
       {"Bearer":token});
   }
 
-  register(credentials){
-    this.registerObservable = this.httpClient.post(this.singleton.registerCall(),
+  register(credentials): Observable<any>{
+    return this.httpClient.post(this.singleton.registerCall(),
     {"username":credentials.username,"password":credentials.password});
-    this.loginObservable
-    .subscribe(data => {
-      console.log('register: ', data);
-    })
   }
 }

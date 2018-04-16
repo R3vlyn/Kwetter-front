@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { SingletonService } from './../../services/singleton.service';
 import { Observable } from 'rxjs/Observable';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, AlertController, Toast, ToastController } from 'ionic-angular';
 import { dateDataSortValue } from 'ionic-angular/util/datetime-util';
 import { Storage } from '@ionic/storage';
 /**
@@ -19,9 +19,10 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'authenticate.html',
 })
 export class AuthenticatePage {
+  registering: boolean = false;
   loading: Loading;
   credentials: any = { "username": "", "password": "" }
-  constructor(private storage: Storage, private loadingCtrl: LoadingController, private alertCtrl: AlertController, public singleton: SingletonService, public navCtrl: NavController, public navParams: NavParams, public httpClient: HttpClient, public userservice: UserService) {
+  constructor(public toastCtrl: ToastController, private storage: Storage, private loadingCtrl: LoadingController, private alertCtrl: AlertController, public singleton: SingletonService, public navCtrl: NavController, public navParams: NavParams, public httpClient: HttpClient, public userservice: UserService) {
 
   }
   showLoading() {
@@ -63,6 +64,25 @@ export class AuthenticatePage {
     },
       error => {
         this.showError("Authentication failed");
+      });
+  }
+
+  register() {
+    this.showLoading()
+    this.userservice.register(this.credentials).subscribe(data => {
+      let dat = data;
+      if(dat.succes){
+        this.loading.dismiss();
+        let toast = this.toastCtrl.create({
+          message: data.result.value,
+          duration: 3000
+        });
+        toast.present();
+        this.registering = false;
+      }
+    },
+      error => {
+        this.showError("Registration failed");
       });
   }
 
