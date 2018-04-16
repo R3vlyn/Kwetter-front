@@ -187,11 +187,11 @@ calcuateTimeAgo(kweet) {
     var date = new Date();
     var postdate = new Date(kweet.postDate);
     var hours = Math.abs(date.getTime() - postdate.getTime()) / 36e5;
-
     if (hours < 1) {
         return Math.ceil(hours * 60) + 'm'
+    } else if (hours > 24) {
+        return Math.floor(hours / 24) + 'd';
     }
-
     return Math.ceil(hours) + 'h';
 }
 
