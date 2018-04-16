@@ -19,18 +19,18 @@
             <div id="profile-header">
                 <ion-item no-lines>
                     <ion-avatar>
-                        <img [src]='profile.image'/>
+                        <img [src]='profile.image' />
                     </ion-avatar>
                 </ion-item>
                 <ion-list text-center>
                     <ion-row>
-                        <ion-label id="profile_name" class="no_margin" >{{profile.name}}</ion-label>
+                        <ion-label id="profile_name" class="no_margin">{{profile.name}}</ion-label>
                     </ion-row>
                     <ion-row>
                         <ion-label id="profile_username" class="no_margin">@{{username}}</ion-label>
                     </ion-row>
                     <ion-row text-wrap>
-                       <ion-label id="profile_bio" class="extra_padding">{{profile.bio}}</ion-label>
+                        <ion-label id="profile_bio" class="extra_padding">{{profile.bio}}</ion-label>
                     </ion-row>
                     <ion-row>
                         <ion-label id="profile_location" class="no_margin">{{profile.location}}</ion-label>
@@ -43,7 +43,7 @@
         </div>
     </div>
     <ion-footer>
-        <ion-segment *ngIf="userNumbers" [(ngModel)]="selectedSegment" color="light">
+        <ion-segment *ngIf="userNumbers" color="light">
             <ion-segment-button (click)="goToFollowing()" value="Following">Following <span class="user-numbers-segment">{{userNumbers.following}}</span></ion-segment-button>
             <ion-segment-button (click)="goToFollowers()" value="Followers">Followers <span class="user-numbers-segment">{{userNumbers.followers}}</span></ion-segment-button>
             <ion-segment-button (click)="goToKweets()" value="Kweets">Kweets <span class="user-numbers-segment">{{userNumbers.kweets}}</span></ion-segment-button>
