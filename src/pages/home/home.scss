@@ -1,3 +1,26 @@
-page-home {
+.ios, .md, .android {
+    page-home {
+        .kweet-username {
+            font-size: 0.9em;
+            opacity: 0.5;
+        }
 
+        .kweet-profileName {
+            font-size: 1.35em;
+        }
+
+        .kweet-profileImage {
+            width: 3.25em;
+            height: 3.25em;
+        }
+
+        .kweet-header span:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .kweet-message {
+            font-size: 1.25em;
+        }
+    }
 }

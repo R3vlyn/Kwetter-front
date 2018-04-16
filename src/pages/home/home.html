@@ -35,17 +35,19 @@
             <ion-card-header>Your last kweet was {{lastkweet.timeago}} hours ago...</ion-card-header>
             <ion-card>
                 <ion-card-content>
-                    <ion-item>
-                        <ion-avatar item-start>
-                            <img src="assets/imgs/logo.png">
+                    <ion-item class='kweet-header'>
+                        <ion-avatar *ngIf="lastkweet.profileImage" item-start>
+                            <img class='kweet-profileImage' alt=""[src]='lastkweet.profileImage'>
                         </ion-avatar>
-                        <h2>{{lastkweet.username}}</h2>
-                        {{lastkweet.postDate}}
+                        <ion-avatar *ngIf="!lastkweet.profileImage" item-start>
+                            <img class='kweet-profileImage' src='assets/imgs/logo.png'>
+                        </ion-avatar>
+                        <span (click)='goToProfile(lastkweet.username)' class='kweet-profileName'>{{lastkweet.profileName}}</span><br>
+                        <span (click)='goToProfile(lastkweet.username)' class='kweet-username'>@{{lastkweet.username}}</span>
                     </ion-item>
                     <ion-item>
                         {{lastkweet.message}}
                     </ion-item>
-
                     <ion-row>
                         <ion-col>
                             <button ion-button icon-left clear small>
@@ -53,9 +55,9 @@
                       <div *ngIf="lastkweet.hearts" >{{lastkweet.hearts.length}} Likes</div>
                     </button>
                         </ion-col>
-                        <ion-col center text-center>
+                        <ion-col center text-right>
                             <ion-note>
-                                11h ago
+                                {{lastkweet.timeago}}h ago - {{lastkweet.postDate}}
                             </ion-note>
                         </ion-col>
                     </ion-row>
@@ -73,36 +75,38 @@
                 Kweets {{usertotals.kweets}}
             </ion-segment-button>
         </ion-segment>
-
     </div>
     <div *ngIf="selectedSegment === 'Timeline'">
         <ion-list *ngFor="let kweet of timeline">
             <ion-card>
-                <ion-item>
-                    <ion-avatar item-start>
-                        <img src="assets/imgs/logo.png">
-                    </ion-avatar>
-                    <h2>{{kweet.username}}</h2>
-                    <p>{{kweet.postDate}}</p>
-                </ion-item>
                 <ion-card-content>
-                    <p>{{kweet.message}}</p>
-                </ion-card-content>
-
-                <ion-row>
-                    <ion-col>
-                        <button ion-button icon-left clear small>
+                    <ion-item class='kweet-header'>
+                        <ion-avatar *ngIf="kweet.profileImage" item-start>
+                            <img class='kweet-profileImage' alt=""[src]='lastkweet.profileImage'>
+                        </ion-avatar>
+                        <ion-avatar *ngIf="!kweet.profileImage" item-start>
+                            <img class='kweet-profileImage' src='assets/imgs/logo.png'>
+                        </ion-avatar>
+                        <span (click)='goToProfile(lastkweet.username)' class='kweet-profileName'>{{kweet.profileName}}</span><br>
+                        <span (click)='goToProfile(lastkweet.username)' class='kweet-username'>@{{kweet.username}}</span>
+                    </ion-item>
+                    <ion-item class='kweet-message'>
+                        {{kweet.message}}
+                    </ion-item>
+                    <ion-row>
+                        <ion-col>
+                            <button ion-button icon-left clear small>
                       <ion-icon name="thumbs-up"></ion-icon>
-                      <div>{{kweet.hearts.length}} Likes</div>
+                      <div *ngIf="lastkweet.hearts" >{{kweet.hearts.length}} Likes</div>
                     </button>
-                    </ion-col>
-                    <ion-col center text-center>
-                        <ion-note>
-                            11h ago
-                        </ion-note>
-                    </ion-col>
-                </ion-row>
-
+                        </ion-col>
+                        <ion-col center text-right>
+                            <ion-note>
+                                {{calcuateTimeAgo(kweet)}}h ago - {{reformatDate(kweet.postDate)}}
+                            </ion-note>
+                        </ion-col>
+                    </ion-row>
+                </ion-card-content>
             </ion-card>
         </ion-list>
         <ion-infinite-scroll (ionInfinite)="loadMoreTimelineItems($event)">

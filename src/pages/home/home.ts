@@ -37,8 +37,6 @@ export class HomePage {
   constructor(private storage: Storage, private loadingCtrl: LoadingController, public toastCtrl: ToastController, public singleton:SingletonService,public navCtrl: NavController, private userService: UserService,public httpClient: HttpClient) {
     this.refreshUserTotals();
     this.refreshLastKweet();
-
-    console.log("Username home: " + this.userService.user);
   }
 
   showLoading() {
@@ -76,10 +74,9 @@ refreshTimeline(){
 loadMoreTimelineItems(infiniteScroll){
     this.page++;
     this.timelineObservable = this.httpClient.get(this.singleton.timelineControlledCall(this.userService.user, this.page, this.amount));
-    this.timelineObservable
-    .subscribe(data => {
+    this.timelineObservable.subscribe(data => {
       if(data !== null){
-      Array.prototype.push.apply(this.timeline, data)
+          Array.prototype.push.apply(this.timeline, data)
       }
       infiniteScroll.complete();
     })
@@ -92,10 +89,8 @@ loadMoreTimelineItems(infiniteScroll){
       if(data instanceof Array && data.length >0)
       {
         this.lastkweet = data[0];
-        var date = new Date();
-        var postdate = new Date(data[0].postDate);
-        var hours = Math.ceil(Math.abs(date.getTime() - postdate.getTime()) / 36e5);
-        this.lastkweet.timeago = hours;
+        this.lastkweet.timeago = this.calcuateTimeAgo(this.lastkweet);
+        this.lastkweet.postDate = this.reformatDate(this.lastkweet.postDate);
       }
     })
   }
@@ -116,9 +111,11 @@ loadMoreTimelineItems(infiniteScroll){
   ngOnInit(): void {
     this.getUsers();
   }
+
   goToUser(selectedUser: User) {
     this.navCtrl.push(ProfilePage, { user: selectedUser });
   }
+
   Match(user: User) {
     if (this.filtertext && this.filtertext !== "") {
       return true;
@@ -140,15 +137,31 @@ goToFollowing(){
 }
 goToKweets(){
   //this.navCtrl.push(TimelinePage, {user: this.userService.user });
+}
 
+goToProfile(username: any) {
+    this.navCtrl.push(ProfilePage, { user: username });
+}
+
+calcuateTimeAgo(kweet) {
+    var date = new Date();
+    var postdate = new Date(kweet.postDate);
+    var hours = Math.floor(Math.abs(date.getTime() - postdate.getTime()) / 36e5);
+
+    return hours;
+}
+
+reformatDate(date) {
+    var dateTime = date.split('T');
+    var dateParts = dateTime[0].split('-');
+
+    return dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
 }
 
   postKweet(){
     this.kweetPostObservable = this.httpClient.post(this.singleton.createKweetCall(this.userService.user),
     {"message":this.newKweetmessage});
-    this.kweetPostObservable
-    .subscribe(data => {
-      console.log("kweetpost result succes: " + data.succes);
+    this.kweetPostObservable.subscribe(data => {
       if(data.succes){
         let toast = this.toastCtrl.create({
           message: 'Kweet posted!',
@@ -161,5 +174,4 @@ goToKweets(){
       }
     });
   }
-
 }
