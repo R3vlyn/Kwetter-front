@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-searchbar #searchbar (ionFocus)="searchbarFocus()" [(ngModel)]="filtertext" [showCancelButton]="true">
+        <ion-searchbar #searchbar [(ngModel)]="filtertext" [showCancelButton]="true">
         </ion-searchbar>
         <ion-buttons end>
             <button ion-button round (click)="logout()">Logout</button>

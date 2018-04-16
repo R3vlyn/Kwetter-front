@@ -8,6 +8,13 @@
             display: flex;
         }
 
+        button {
+            float: left;
+            position: absolute;
+            width: 6em;
+            margin: 1.5em;
+        }
+
         ion-avatar > img {
             margin: auto;
             width: 125px;

@@ -13,7 +13,9 @@
 <ion-content>
     <div *ngIf="profile" text-center>
         <div id="wrapper" class="fixed-content">
-            <ion-icon *ngIf="otherProfile" (click)="goToUpdateProfile()" id="update-profile" name="ios-create-outline"></ion-icon>
+            <ion-icon *ngIf="!isOtherProfile" (click)="goToUpdateProfile()" id="update-profile" name="ios-create-outline"></ion-icon>
+            <button ion-button *ngIf="isOtherProfile && !isFollowing" (click)='follow()' block>Follow</button>
+            <button ion-button *ngIf="isOtherProfile && isFollowing" (click)='unFollow()' block>Unfollow</button>
             <div id="profile-header">
                 <ion-item no-lines>
                     <ion-avatar>

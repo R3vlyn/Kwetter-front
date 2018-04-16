@@ -36,7 +36,8 @@ export class ProfilePage {
   following: any;
   followers: any;
   kweets: any;
-  otherProfile: any;
+  isOtherProfile: any;
+  isFollowing: any;
 
   constructor (
     public navCtrl: NavController,
@@ -56,23 +57,36 @@ export class ProfilePage {
     this.loading.present();
   }
 
-ionViewWillEnter(){
-  console.log("Username profile: " + this.userService.user);
-  if (this.navParams.data.user) {
-    this.username = this.navParams.data.user;
-    this.otherProfile = "true";
-    this.fetchProfile(this.username);
-    this.fetchUserNumbers(this.username)
-  } else {
-    if(this.username !== this.userService.user){
-      this.username = this.userService.user;
-      this.fetchProfile(this.username);
-      this.fetchUserNumbers(this.username);
-    }
-    this.otherProfile = "false";
-  }
+    ionViewWillEnter(){
+      console.log("Username profile: " + this.userService.user);
+      if (this.navParams.data.user) {
+            this.username = this.navParams.data.user;
+            this.fetchProfile(this.username);
+            this.fetchUserNumbers(this.username)
+            this.isOtherProfile = true;
 
-}
+            this.checkFollowing(this.userService.user, (isFollowing) => {
+                this.isFollowing = isFollowing;
+            });
+      } else {
+          this.username = this.userService.user;
+          this.fetchProfile(this.username);
+          this.fetchUserNumbers(this.username);
+          this.isOtherProfile = false;
+      }
+    }
+
+    checkFollowing(user, _cb) {
+        this.followingObservable = this.httpClient.get(this.singletonService.getFollowingCall(this.username));
+        this.followingObservable.subscribe(data => {
+            data.forEach(elem => {
+                if (elem == this.username) {
+                    _cb(true);
+                }
+            });
+            _cb(false);
+        });
+    }
 
   showFollowing() {
     this.followingObservable = this.httpClient.get(this.singletonService.getFollowingCall(this.username));
@@ -149,5 +163,13 @@ ionViewWillEnter(){
 
   goToKweets() {
     //this.navCtrl.push(TimelinePage, {user: this.username });
+  }
+
+  follow() {
+
+  }
+
+  unFollow() {
+
   }
 }
