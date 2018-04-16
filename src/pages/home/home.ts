@@ -10,6 +10,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, ToastController, LoadingCmp, LoadingController, Loading } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
+import { SearchPage } from '../search/search';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -23,6 +24,7 @@ export class HomePage {
   timelineObservable: Observable<any>;
   lastkweetObservable: Observable<any>;
   kweetPostObservable: Observable<any>;
+  kweetLikeObservable: Observable<any>;
   trends: any[] = [];
   timeline: any[] = [];
   users: User[] = [];
@@ -41,8 +43,7 @@ export class HomePage {
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      dismissOnPageChange: true
+      content: 'Please wait...'
     });
     this.loading.present();
   }
@@ -60,6 +61,42 @@ refreshTrends(){
     // })
     ;}
   })
+}
+
+ionViewDidEnter(){
+  let elements = document.querySelectorAll(".tabbar");
+
+  if (elements != null) {
+    Object.keys(elements).map((key) => {
+      elements[key].style.display = 'flex';
+    });
+  }
+}
+
+likeKweet(kweet) {
+  this.kweetLikeObservable = this.httpClient.post(this.singleton.likeKweetCall(this.userService.user, kweet.kweetId), null);
+  this.kweetLikeObservable
+    .subscribe(data => {
+      console.log("kweetlike result succes: " + data.succes);
+      if (data.succes) {
+        let toast = this.toastCtrl.create({
+          message: 'Kweet liked!',
+          duration: 3000
+        });
+        toast.present();
+        this.refreshTimeline();
+      } else {
+        let toast = this.toastCtrl.create({
+          message: data.result.value,
+          duration: 3000
+        });
+        toast.present();
+      }
+    })
+}
+
+searchbarFocus() {
+  this.navCtrl.push(SearchPage)
 }
 
 refreshTimeline(){
