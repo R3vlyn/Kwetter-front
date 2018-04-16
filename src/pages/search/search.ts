@@ -21,9 +21,21 @@ export class SearchPage {
 
   constructor(public httpClient: HttpClient, public navCtrl: NavController, public navParams: NavParams, platform: Platform, private userService: UserService, private loadingCtrl: LoadingController, public toastCtrl: ToastController, public singleton: SingletonService) {
     this.platform = platform;
+
   }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad SearchPage');
+  }
+
+  // Fastest for instant search
+  ionViewWillEnter() {
+      const term = this.navParams.data.term;
+      if (term) {
+          this.filtertext = term;
+          // Trigger search
+          this.searchKweets(term);
+      }
   }
 
   ionViewDidEnter(){
@@ -70,6 +82,7 @@ export class SearchPage {
     });
     this.loading.present();
   }
+
   goToUser(user) {
 
   }

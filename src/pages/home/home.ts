@@ -179,6 +179,10 @@ goToProfile(username: any) {
     this.navCtrl.push(ProfilePage, { user: username });
 }
 
+searchHashtag(hashtag: any) {
+    this.navCtrl.push(SearchPage, { term: hashtag });
+}
+
 calcuateTimeAgo(kweet) {
     var date = new Date();
     var postdate = new Date(kweet.postDate);
