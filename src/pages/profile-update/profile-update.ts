@@ -73,7 +73,7 @@ export class ProfileUpdatePage {
     if (fileList.length > 0) {
         let file: File = fileList[0];
         this.toBase64(file, (base64) => {
-          this.profile.image = base64;
+          this.updatedProfile.image = base64;
       })
     }
   }
