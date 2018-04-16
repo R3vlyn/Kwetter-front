@@ -47,7 +47,9 @@
                         <span (click)='goToProfile(lastkweet.username)' class='kweet-username'>@{{lastkweet.username}}</span>
                     </ion-item>
                     <ion-item>
-                        {{lastkweet.message}}
+                        <ion-list class='kweet-word' *ngFor="let word of lastkweet.message.split(' ')">
+                            {{word}}
+                        </ion-list>
                     </ion-item>
                     <ion-row>
                         <ion-col>
