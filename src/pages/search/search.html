@@ -6,31 +6,36 @@
 <ion-content>
     <ion-list *ngFor="let kweet of foundkweets">
         <ion-card>
-            <ion-item>
-                <ion-avatar item-start>
-                    <img src="assets/imgs/logo.png">
-                </ion-avatar>
-                <h2>{{kweet.username}}</h2>
-                <p>{{kweet.postDate}}</p>
-            </ion-item>
             <ion-card-content>
-                <p>{{kweet.message}}</p>
+                <ion-item class='kweet-header'>
+                    <ion-avatar *ngIf="kweet.profileImage" item-start>
+                        <img class='kweet-profileImage' alt=""[src]='kweet.profileImage'>
+                    </ion-avatar>
+                    <ion-avatar *ngIf="!kweet.profileImage" item-start>
+                        <img class='kweet-profileImage' src='assets/imgs/logo.png'>
+                    </ion-avatar>
+                    <span *ngIf="kweet.profileName" (click)='goToProfile(kweet.username)' class='kweet-profileName'>{{kweet.profileName}}</span>
+                    <span *ngIf="!kweet.profileName" (click)='goToProfile(kweet.username)' class='kweet-profileName'>{{kweet.username}}</span>
+                    <br>
+                    <span (click)='goToProfile(kweet.username)' class='kweet-username'>@{{kweet.username}}</span>
+                </ion-item>
+                <ion-item class='kweet-message'>
+                    {{kweet.message}}
+                </ion-item>
+                <ion-row>
+                    <ion-col>
+                        <button ion-button icon-left clear small>
+                  <ion-icon name="thumbs-up"></ion-icon>
+                  <div *ngIf="kweet.hearts" >{{kweet.hearts.length}} Likes</div>
+                </button>
+                    </ion-col>
+                    <ion-col center text-right>
+                        <ion-note>
+                            {{calcuateTimeAgo(kweet)}}h ago - {{reformatDate(kweet.postDate)}}
+                        </ion-note>
+                    </ion-col>
+                </ion-row>
             </ion-card-content>
-
-            <ion-row>
-                <ion-col>
-                    <button ion-button icon-left clear small (click)="likeKweet(kweet)">
-              <ion-icon name="thumbs-up"></ion-icon>
-              <div>{{kweet.hearts.length}} Likes</div>
-            </button>
-                </ion-col>
-                <ion-col center text-center>
-                    <ion-note>
-                        11h ago
-                    </ion-note>
-                </ion-col>
-            </ion-row>
-
         </ion-card>
     </ion-list>
 

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { SingletonService } from './../../services/singleton.service';
 import { Observable } from 'rxjs/Observable';
 import { Component, ViewChild } from '@angular/core';
+import { ProfilePage } from './../profile/profile';
 import { NavController, NavParams, Platform, LoadingController, ToastController, Loading } from 'ionic-angular';
 
 @Component({
@@ -97,5 +98,24 @@ export class SearchPage {
           toast.present();
         }
       })
+  }
+
+  calcuateTimeAgo(kweet) {
+      var date = new Date();
+      var postdate = new Date(kweet.postDate);
+      var hours = Math.floor(Math.abs(date.getTime() - postdate.getTime()) / 36e5);
+
+      return hours;
+  }
+
+  reformatDate(date) {
+      var dateTime = date.split('T');
+      var dateParts = dateTime[0].split('-');
+
+      return dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
+  }
+
+  goToProfile(username: any) {
+      this.navCtrl.push(ProfilePage, { user: username });
   }
 }

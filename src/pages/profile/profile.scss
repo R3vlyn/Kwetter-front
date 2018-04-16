@@ -8,11 +8,11 @@
             display: flex;
         }
 
-        button {
-            float: left;
-            position: absolute;
-            width: 6em;
-            margin: 1.5em;
+        .follow-button {
+            float: left !important;
+            position: absolute !important;
+            width: 6em !important;
+            margin: 1.5em !important;
         }
 
         ion-avatar > img {

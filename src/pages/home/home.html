@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-         <ion-searchbar #searchbar (ionFocus)="searchbarFocus()" [(ngModel)]="filtertext" [showCancelButton]="true"></ion-searchbar> 
+         <ion-searchbar #searchbar (ionFocus)="searchbarFocus()" [(ngModel)]="filtertext" [showCancelButton]="true"></ion-searchbar>
         <ion-buttons end>
             <button ion-button round (click)="logout()">Logout</button>
         </ion-buttons>
@@ -83,13 +83,13 @@
                 <ion-card-content>
                     <ion-item class='kweet-header'>
                         <ion-avatar *ngIf="kweet.profileImage" item-start>
-                            <img class='kweet-profileImage' alt=""[src]='lastkweet.profileImage'>
+                            <img class='kweet-profileImage' alt=""[src]='kweet.profileImage'>
                         </ion-avatar>
                         <ion-avatar *ngIf="!kweet.profileImage" item-start>
                             <img class='kweet-profileImage' src='assets/imgs/logo.png'>
                         </ion-avatar>
-                        <span *ngIf="kweet.profileName" (click)='goToProfile(lastkweet.username)' class='kweet-profileName'>{{kweet.profileName}}</span>
-                        <span *ngIf="!kweet.profileName" (click)='goToProfile(lastkweet.username)' class='kweet-profileName'>{{kweet.username}}</span>
+                        <span *ngIf="kweet.profileName" (click)='goToProfile(kweet.username)' class='kweet-profileName'>{{kweet.profileName}}</span>
+                        <span *ngIf="!kweet.profileName" (click)='goToProfile(kweet.username)' class='kweet-profileName'>{{kweet.username}}</span>
                         <br>
                         <span (click)='goToProfile(kweet.username)' class='kweet-username'>@{{kweet.username}}</span>
                     </ion-item>
@@ -100,7 +100,7 @@
                         <ion-col>
                             <button ion-button icon-left clear small>
                       <ion-icon name="thumbs-up"></ion-icon>
-                      <div *ngIf="lastkweet.hearts" >{{kweet.hearts.length}} Likes</div>
+                      <div *ngIf="kweet.hearts" >{{kweet.hearts.length}} Likes</div>
                     </button>
                         </ion-col>
                         <ion-col center text-right>
