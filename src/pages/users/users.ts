@@ -22,6 +22,7 @@ export class UsersPage {
   UsersObservable: Observable<any>;
   loading: Loading;
   username: string;
+  title:string = "Users";
   users: any[] = [];
   constructor(public navCtrl: NavController, public navParams: NavParams, private loadingCtrl: LoadingController, public singleton: SingletonService, public httpClient: HttpClient) {
   }
@@ -33,7 +34,6 @@ export class UsersPage {
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
-      dismissOnPageChange: true
     });
     this.loading.present();
   }
@@ -44,20 +44,22 @@ export class UsersPage {
     this.UsersObservable
       .subscribe(data => {
         if (data instanceof Array) {
-          this.loading.dismiss();
           this.users = data;
-          ;
         }
+        this.loading.dismiss();
       })
   }
 
   ionViewWillEnter() {
+
     if (this.navParams.data.user) {
       this.username = this.navParams.data.user;
       if(this.navParams.data.type ==="followers"){
+        this.title = "Kweeters who follow " + this.username;
         this.loadUsers(this.username, this.singleton.getFollowersCall(this.username));
       }
       if(this.navParams.data.type ==="following"){
+        this.title = "Kweeters who " + this.username + " is currently following";
         this.loadUsers(this.username, this.singleton.getFollowingCall(this.username));
       }
     }

@@ -7,7 +7,7 @@
 <ion-header>
 
     <ion-navbar>
-        <ion-title>users</ion-title>
+        <ion-title>{{title}}</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -15,15 +15,18 @@
 
 <ion-content padding>
     <ion-list *ngFor="let user of users">
-        <ion-card (click)="goToUser(user.username)">
-            <ion-row>
-                <ion-col>
-                    <h2>{{user.image}}</h2>
-                </ion-col>
-                <ion-col>
-                    <h2>{{user.username}}</h2>
-                </ion-col>
-            </ion-row>
+        <ion-card (click)='goToUser(user.username)'>
+            <ion-card-content>
+                <button ion-item>
+                    <ion-avatar *ngIf="user.image" item-start>
+                        <img alt="" [src]='user.image'>
+                    </ion-avatar>
+                    <ion-avatar *ngIf="!user.image" item-start>
+                        <img src='assets/imgs/logo.png'>
+                    </ion-avatar>
+                    <span *ngIf="user.username">{{user.username}}</span>
+                </button>
+            </ion-card-content>
         </ion-card>
     </ion-list>
 </ion-content>

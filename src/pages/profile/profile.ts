@@ -1,7 +1,7 @@
 import { UsersPage } from './../users/users';
 import { ProfileUpdatePage } from './../profile-update/profile-update';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Loading, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Loading, LoadingController, ToastController } from 'ionic-angular';
 import { User } from './../../models/user';
 import { SingletonService } from './../../services/singleton.service';
 import { HttpClient } from '@angular/common/http';
@@ -27,7 +27,7 @@ export class ProfilePage {
   followingObservable: Observable<any>;
   followersObservable: Observable<any>;
   kweetsObservable: Observable<any>;
-
+  followUserObservable: Observable<any>;
   loading: Loading;
 
   username: string;
@@ -46,13 +46,13 @@ export class ProfilePage {
     public httpClient: HttpClient,
     public artCtrl: AlertController,
     private userService: UserService,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    public toastCtrl: ToastController) {
   }
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      dismissOnPageChange: true
+      content: 'Please wait...'
     });
     this.loading.present();
   }
@@ -76,14 +76,19 @@ export class ProfilePage {
     }
 
     checkFollowing(user, _cb) {
-        this.followingObservable = this.httpClient.get(this.singletonService.getFollowingCall(this.username));
+        this.followingObservable = this.httpClient.get(this.singletonService.getFollowersCall(this.username));
         this.followingObservable.subscribe(data => {
-            data.forEach(elem => {
-                if (elem == this.username) {
-                    _cb(true);
+           var d = data;
+           var following = false;
+           data.forEach(elem => {
+                if (elem.username === this.userService.user) {
+                  following = true;
+                   _cb(true);
                 }
             });
-            _cb(false);
+            if(!following){
+              _cb(false);
+            }
         });
     }
 
@@ -163,7 +168,18 @@ export class ProfilePage {
   }
 
   follow() {
-
+    this.followUserObservable = this.httpClient.post(this.singletonService.followUserCall(this.userService.user, this.username), null);
+    this.followUserObservable.subscribe(data => {
+      if(data.succes){
+        this.userNumbers.followers++;
+        this.isFollowing = true;
+        let toast = this.toastCtrl.create({
+          message: data.result.value,
+          duration: 3000
+        });
+        toast.present();
+      }
+    });
   }
 
   unFollow() {
