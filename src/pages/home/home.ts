@@ -208,6 +208,7 @@ reformatDate(date) {
 }
 
   postKweet(){
+      console.log(this.newKweetmessage);
     this.kweetPostObservable = this.httpClient.post(this.singleton.createKweetCall(this.userService.user),
     {"message":this.newKweetmessage});
     this.kweetPostObservable.subscribe(data => {

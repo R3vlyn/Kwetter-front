@@ -26,5 +26,23 @@
         .kweet-word {
             display: initial !important;
         }
+
+        .kweet-word-mention:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .kweet-word-mention {
+            color: #3F6FC2;
+        }
+
+        .kweet-word-hashtag:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .kweet-word-hashtag {
+            color: #27627F;
+        }
     }
 }

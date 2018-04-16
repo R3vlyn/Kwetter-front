@@ -48,7 +48,9 @@
                     </ion-item>
                     <ion-item>
                         <ion-list class='kweet-word' *ngFor="let word of lastkweet.message.split(' ')">
-                            {{word}}
+                            <span *ngIf="word.startsWith('@')" class="kweet-word-mention">{{word}}</span>
+                            <span *ngIf="word.startsWith('#')" class="kweet-word-hashtag">{{word}}</span>
+                            <span *ngIf="!word.startsWith('@') && !word.startsWith('#')">{{word}}</span>
                         </ion-list>
                     </ion-item>
                     <ion-row>
@@ -99,7 +101,11 @@
                         <span (click)='goToProfile(kweet.username)' class='kweet-username'>@{{kweet.username}}</span>
                     </ion-item>
                     <ion-item class='kweet-message'>
-                        {{kweet.message}}
+                        <ion-list class='kweet-word' *ngFor="let word of lastkweet.message.split(' ')">
+                            <span *ngIf="word.startsWith('@')" class="kweet-word-mention">{{word}}</span>
+                            <span *ngIf="word.startsWith('#')" class="kweet-word-hashtag">{{word}}</span>
+                            <span *ngIf="!word.startsWith('@') && !word.startsWith('#')">{{word}}</span>
+                        </ion-list>
                     </ion-item>
                     <ion-row>
                         <ion-col>
