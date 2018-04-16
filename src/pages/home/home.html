@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-searchbar #searchbar [(ngModel)]="filtertext" [showCancelButton]="true">
+        <ion-searchbar #searchbar (ionFocus)="searchbarFocus()" [(ngModel)]="filtertext" [showCancelButton]="true">
         </ion-searchbar>
         <ion-buttons end>
             <button ion-button round (click)="logout()">Logout</button>
@@ -91,7 +91,7 @@
 
                 <ion-row>
                     <ion-col>
-                        <button ion-button icon-left clear small>
+                        <button ion-button icon-left clear small (click)="likeKweet(kweet)">
                       <ion-icon name="thumbs-up"></ion-icon>
                       <div>{{kweet.hearts.length}} Likes</div>
                     </button>

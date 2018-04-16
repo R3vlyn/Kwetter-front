@@ -10,6 +10,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NavController, ToastController, LoadingCmp, LoadingController, Loading } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
+import { SearchPage } from '../search/search';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -23,18 +24,20 @@ export class HomePage {
   timelineObservable: Observable<any>;
   lastkweetObservable: Observable<any>;
   kweetPostObservable: Observable<any>;
+  kweetLikeObservable: Observable<any>;
+
   trends: any[] = [];
   timeline: any[] = [];
   users: User[] = [];
   newKweetmessage: string;
-  lastkweet:any;
+  lastkweet: any;
   selectedSegment: string = 'Dashboard';
-  usertotals:any;
+  usertotals: any;
   page: number = 1;
   amount: number = 7;
   loading: Loading;
 
-  constructor(private storage: Storage, private loadingCtrl: LoadingController, public toastCtrl: ToastController, public singleton:SingletonService,public navCtrl: NavController, private userService: UserService,public httpClient: HttpClient) {
+  constructor(private storage: Storage, private loadingCtrl: LoadingController, public toastCtrl: ToastController, public singleton: SingletonService, public navCtrl: NavController, private userService: UserService, public httpClient: HttpClient) {
     this.refreshUserTotals();
     this.refreshLastKweet();
 
@@ -49,64 +52,100 @@ export class HomePage {
     this.loading.present();
   }
 
-refreshTrends(){
-  //this.showLoading()
-  this.trendsObservable = this.httpClient.get(this.singleton.trendsCall());
-  this.trendsObservable
-  .subscribe(data => {
-    if(data instanceof Array){
-      //this.loading.dismiss();
-      this.trends = data;
-    //   data.forEach(element => {
-    //   this.trends.push(element);
-    // })
-    ;}
-  })
-}
+  ionViewDidEnter(){
+    let elements = document.querySelectorAll(".tabbar");
 
-refreshTimeline(){
-  this.page = 1;
-  this.timelineObservable = this.httpClient.get(this.singleton.timelineControlledCall(this.userService.user, this.page, this.amount));
-  this.timelineObservable
-  .subscribe(data => {
-    this.timeline = data;
-  })
-}
+    if (elements != null) {
+      Object.keys(elements).map((key) => {
+        elements[key].style.display = 'flex';
+      });
+    }
+  }
 
-loadMoreTimelineItems(infiniteScroll){
+  refreshTrends() {
+    //this.showLoading()
+    this.trendsObservable = this.httpClient.get(this.singleton.trendsCall());
+    this.trendsObservable
+      .subscribe(data => {
+        if (data instanceof Array) {
+          //this.loading.dismiss();
+          this.trends = data;
+          //   data.forEach(element => {
+          //   this.trends.push(element);
+          // })
+          ;
+        }
+      })
+  }
+
+  likeKweet(kweet) {
+    this.kweetLikeObservable = this.httpClient.post(this.singleton.likeKweetCall(this.userService.user, kweet.kweetId), null);
+    this.kweetLikeObservable
+      .subscribe(data => {
+        console.log("kweetlike result succes: " + data.succes);
+        if (data.succes) {
+          let toast = this.toastCtrl.create({
+            message: 'Kweet liked!',
+            duration: 3000
+          });
+          toast.present();
+          this.refreshTimeline();
+        } else {
+          let toast = this.toastCtrl.create({
+            message: data.result.value,
+            duration: 3000
+          });
+          toast.present();
+        }
+      })
+  }
+
+  searchbarFocus() {
+    this.navCtrl.push(SearchPage)
+  }
+
+  refreshTimeline() {
+    this.page = 1;
+    this.timelineObservable = this.httpClient.get(this.singleton.timelineControlledCall(this.userService.user, this.page, this.amount));
+    this.timelineObservable
+      .subscribe(data => {
+        this.timeline = data;
+      })
+  }
+
+  loadMoreTimelineItems(infiniteScroll) {
     this.page++;
     this.timelineObservable = this.httpClient.get(this.singleton.timelineControlledCall(this.userService.user, this.page, this.amount));
     this.timelineObservable
-    .subscribe(data => {
-      if(data !== null){
-      Array.prototype.push.apply(this.timeline, data)
-      }
-      infiniteScroll.complete();
-    })
-}
-
-  refreshLastKweet(){
-    this.lastkweetObservable = this.httpClient.get(this.singleton.lastKweetsCall(1,this.userService.user));
-    this.lastkweetObservable
-    .subscribe(data => {
-      if(data instanceof Array && data.length >0)
-      {
-        this.lastkweet = data[0];
-        var date = new Date();
-        var postdate = new Date(data[0].postDate);
-        var hours = Math.ceil(Math.abs(date.getTime() - postdate.getTime()) / 36e5);
-        this.lastkweet.timeago = hours;
-      }
-    })
+      .subscribe(data => {
+        if (data !== null) {
+          Array.prototype.push.apply(this.timeline, data)
+        }
+        infiniteScroll.complete();
+      })
   }
 
-  refreshUserTotals(){
+  refreshLastKweet() {
+    this.lastkweetObservable = this.httpClient.get(this.singleton.lastKweetsCall(1, this.userService.user));
+    this.lastkweetObservable
+      .subscribe(data => {
+        if (data instanceof Array && data.length > 0) {
+          this.lastkweet = data[0];
+          var date = new Date();
+          var postdate = new Date(data[0].postDate);
+          var hours = Math.ceil(Math.abs(date.getTime() - postdate.getTime()) / 36e5);
+          this.lastkweet.timeago = hours;
+        }
+      })
+  }
+
+  refreshUserTotals() {
     this.userTotalsObservable = this.httpClient.get(this.singleton.getUserTotalsCall(this.userService.user));
     this.userTotalsObservable
-    .subscribe(data => {
-      this.usertotals = data;
-      console.log('Usertotals: ', data);
-    })
+      .subscribe(data => {
+        this.usertotals = data;
+        console.log('Usertotals: ', data);
+      })
   }
 
   getUsers(): void {
@@ -126,40 +165,40 @@ loadMoreTimelineItems(infiniteScroll){
     return false;
   }
 
-  logout(){
+  logout() {
     this.storage.set('bearer', null);
     this.navCtrl.setRoot(AuthenticatePage);
     //this.navCtrl.popToRoot();
   }
 
-goToFollowers(){
-  this.navCtrl.push(UsersPage, { type: "followers", user: this.userService.user });
-}
-goToFollowing(){
-  this.navCtrl.push(UsersPage, { type: "following", user: this.userService.user });
-}
-goToKweets(){
-  //this.navCtrl.push(TimelinePage, {user: this.userService.user });
+  goToFollowers() {
+    this.navCtrl.push(UsersPage, { type: "followers", user: this.userService.user });
+  }
+  goToFollowing() {
+    this.navCtrl.push(UsersPage, { type: "following", user: this.userService.user });
+  }
+  goToKweets() {
+    //this.navCtrl.push(TimelinePage, {user: this.userService.user });
 
-}
+  }
 
-  postKweet(){
+  postKweet() {
     this.kweetPostObservable = this.httpClient.post(this.singleton.createKweetCall(this.userService.user),
-    {"message":this.newKweetmessage});
+      { "message": this.newKweetmessage });
     this.kweetPostObservable
-    .subscribe(data => {
-      console.log("kweetpost result succes: " + data.succes);
-      if(data.succes){
-        let toast = this.toastCtrl.create({
-          message: 'Kweet posted!',
-          duration: 3000
-        });
-        toast.present();
-        this.newKweetmessage ="";
-        this.refreshLastKweet();
-        this.refreshUserTotals();
-      }
-    });
+      .subscribe(data => {
+        console.log("kweetpost result succes: " + data.succes);
+        if (data.succes) {
+          let toast = this.toastCtrl.create({
+            message: 'Kweet posted!',
+            duration: 3000
+          });
+          toast.present();
+          this.newKweetmessage = "";
+          this.refreshLastKweet();
+          this.refreshUserTotals();
+        }
+      });
   }
 
 }

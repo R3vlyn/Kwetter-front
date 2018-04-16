@@ -1,3 +1,4 @@
+import { SearchPage } from './../pages/search/search';
 import { UsersPage } from './../pages/users/users';
 import { UserService } from './../services/user.service';
 import { AuthenticatePage } from './../pages/authenticate/authenticate';
@@ -25,7 +26,8 @@ import { IonicStorageModule } from '@ionic/storage';
     HomePage,
     TabsPage,
     AuthenticatePage,
-    ProfileUpdatePage
+    ProfileUpdatePage,
+    SearchPage
   ],
   imports: [
     HttpClientModule,
@@ -35,6 +37,7 @@ import { IonicStorageModule } from '@ionic/storage';
   ],
   bootstrap: [IonicApp],
   entryComponents: [
+    SearchPage,
     AuthenticatePage,
     MyApp,
     ProfilePage,
