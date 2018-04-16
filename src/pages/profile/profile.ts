@@ -57,8 +57,7 @@ export class ProfilePage {
     this.loading.present();
   }
 
-    ionViewWillEnter(){
-      console.log("Username profile: " + this.userService.user);
+    ionViewWillEnter() {
       if (this.navParams.data.user && this.navParams.data.user !== this.userService.user) {
             this.username = this.navParams.data.user;
             this.fetchProfile(this.username);
