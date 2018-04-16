@@ -24,6 +24,7 @@ export class ProfileUpdatePage {
 
   profileObservable: Observable<any>;
   profile: any;
+  updatedProfile: any;
   username: any;
 
   constructor(
@@ -35,6 +36,13 @@ export class ProfileUpdatePage {
     private userService: UserService) {
 
     this.profile = this.navParams.data.profile;
+    this.updatedProfile = {
+        name: this.profile.name,
+        bio: this.profile.bio,
+        website: this.profile.website,
+        location: this.profile.location,
+        image: this.profile.image
+    }
     this.username = this.navParams.data.username;
   }
 
@@ -43,10 +51,15 @@ export class ProfileUpdatePage {
   }
 
   saveProfile() {
-    this.profileObservable =  this.httpClient.post(this.singletonService.setProfileCall(this.username), this.profile);
+    this.profileObservable =  this.httpClient.post(this.singletonService.setProfileCall(this.username), this.updatedProfile);
     this.profileObservable.subscribe(data => {
       console.log(data);
       if (data.succes) {
+        this.profile.name = this.updatedProfile.name;
+        this.profile.bio = this.updatedProfile.bio;
+        this.profile.website = this.updatedProfile.website;
+        this.profile.location = this.updatedProfile.location;
+        this.profile.image = this.updatedProfile.image;
         this.navCtrl.pop();
       } else {
         this.showAlert(data.result.value);
@@ -61,7 +74,7 @@ export class ProfileUpdatePage {
         let file: File = fileList[0];
         this.toBase64(file, (base64) => {
           this.profile.image = base64;
-        })
+      })
     }
   }
 
