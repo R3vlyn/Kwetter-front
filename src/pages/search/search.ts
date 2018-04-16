@@ -113,12 +113,14 @@ export class SearchPage {
       })
   }
 
-  calculateTimeAgo(kweet) {
+  calcuateTimeAgo(kweet) {
       var date = new Date();
       var postdate = new Date(kweet.postDate);
-      var hours = Math.floor(Math.abs(date.getTime() - postdate.getTime()) / 36e5);
-
-      return hours;
+      var hours = Math.abs(date.getTime() - postdate.getTime()) / 36e5;
+      if (hours < 1) {
+          return Math.ceil(hours * 60) + 'm'
+      }
+      return Math.ceil(hours) + 'h';
   }
 
   reformatDate(date) {
