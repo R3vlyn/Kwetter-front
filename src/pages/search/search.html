@@ -9,7 +9,7 @@
             <ion-card-content>
                 <ion-item class='kweet-header'>
                     <ion-avatar *ngIf="kweet.profileImage" item-start>
-                        <img class='kweet-profileImage' alt=""[src]='kweet.profileImage'>
+                        <img class='kweet-profileImage' alt="" [src]='kweet.profileImage'>
                     </ion-avatar>
                     <ion-avatar *ngIf="!kweet.profileImage" item-start>
                         <img class='kweet-profileImage' src='assets/imgs/logo.png'>
@@ -24,14 +24,14 @@
                 </ion-item>
                 <ion-row>
                     <ion-col>
-                        <button ion-button icon-left clear small>
+                        <button ion-button icon-left clear small (click)="likeKweet(kweet)">
                   <ion-icon name="thumbs-up"></ion-icon>
                   <div *ngIf="kweet.hearts" >{{kweet.hearts.length}} Likes</div>
                 </button>
                     </ion-col>
                     <ion-col center text-right>
                         <ion-note>
-                            {{calcuateTimeAgo(kweet)}}h ago - {{reformatDate(kweet.postDate)}}
+                            {{calculateTimeAgo(kweet)}}h ago - {{reformatDate(kweet.postDate)}}
                         </ion-note>
                     </ion-col>
                 </ion-row>
