@@ -22,7 +22,7 @@ export class SingletonService {
  private setProfileUrl: string = "profile/";
  private followingUrl: string = "/following";
  private userTotalsUrl: string = "byusername/";
- private registerUrl: string = "kweet/register";
+ private registerUrl: string = "authentication/register";
  private followUserUrl: string = "/following/add/";
   public user: string
 
@@ -61,7 +61,7 @@ export class SingletonService {
   }
 
   registerCall():string{
-    return this.baseUrl + this.registerCall;
+    return this.baseUrl + this.registerUrl;
   }
   getProfileCall(username):string{
     return this.baseUserUrl + username + this.profileUrl;
