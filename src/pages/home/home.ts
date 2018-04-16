@@ -150,6 +150,19 @@ calcuateTimeAgo(kweet) {
     return hours;
 }
 
+filterMentions(message) {
+    let filteredWords = [];
+    const words = message.split(' ');
+    words.forEach(word => {
+        if (word.startsWith('@')) {
+            word = '<i>' + word + '</i>';
+        }
+        filteredWords.push(word);
+    });
+    console.log(filteredWords.join(' '));
+    return filteredWords.join(' ');
+}
+
 reformatDate(date) {
     var dateTime = date.split('T');
     var dateParts = dateTime[0].split('-');

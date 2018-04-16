@@ -117,7 +117,6 @@ export class ProfilePage {
   }
 
   fetchProfile(username) {
-    console.log('username: ' + username);
     this.showLoading();
     this.profileObservable = this.httpClient.get(this.singletonService.getProfileCall(username));
     this.profileObservable.subscribe(data => {
@@ -148,7 +147,6 @@ export class ProfilePage {
   fetchUserNumbers(username) {
     this.userNumbersObservable = this.httpClient.get(this.singletonService.getUserTotalsCall(username));
     this.userNumbersObservable.subscribe(data => {
-      console.log(data);
       this.userNumbers = data;
     })
   }
