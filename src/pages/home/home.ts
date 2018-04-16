@@ -49,17 +49,11 @@ export class HomePage {
   }
 
 refreshTrends(){
-  //this.showLoading()
   this.trendsObservable = this.httpClient.get(this.singleton.trendsCall());
-  this.trendsObservable
-  .subscribe(data => {
-    if(data instanceof Array){
-      //this.loading.dismiss();
-      this.trends = data;
-    //   data.forEach(element => {
-    //   this.trends.push(element);
-    // })
-    ;}
+  this.trendsObservable.subscribe(data => {
+      if (data instanceof Array) {
+        this.trends = data;
+      }
   })
 }
 
@@ -126,8 +120,8 @@ loadMoreTimelineItems(infiniteScroll){
       if(data instanceof Array && data.length >0)
       {
         this.lastkweet = data[0];
-        this.lastkweet.timeago = this.calcuateTimeAgo(this.lastkweet);
-        this.lastkweet.postDate = this.reformatDate(this.lastkweet.postDate);
+        this.lastkweet.timeago = this.calculateTimeAgo(this.lastkweet.postDate);
+        this.lastkweet.postDate = this.formatDate(this.lastkweet.postDate);
       }
     })
   }
@@ -183,9 +177,9 @@ searchHashtag(hashtag: any) {
     this.navCtrl.push(SearchPage, { term: hashtag });
 }
 
-calcuateTimeAgo(kweet) {
+calculateTimeAgo(postDate) {
     var date = new Date();
-    var postdate = new Date(kweet.postDate);
+    var postdate = new Date(postDate);
     var hours = Math.abs(date.getTime() - postdate.getTime()) / 36e5;
     if (hours < 1) {
         return Math.ceil(hours * 60) + 'm'
@@ -208,7 +202,7 @@ filterMentions(message) {
     return filteredWords.join(' ');
 }
 
-reformatDate(date) {
+formatDate(date) {
     var dateTime = date.split('T');
     var dateParts = dateTime[0].split('-');
 

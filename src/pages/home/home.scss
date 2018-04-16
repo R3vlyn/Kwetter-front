@@ -44,5 +44,28 @@
         .kweet-word-hashtag {
             color: #27627F;
         }
+
+        .trend-timesUsed {
+            opacity: 0.5;
+        }
+
+        .trend-name {
+            color: #27627F;
+            font-size: 1.15em;
+        }
+
+        .trend-name:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .trend-lastUsed {
+            float: right;
+        }
+
+        .trend-index {
+            margin: auto;
+            padding: 1em;
+        }
     }
 }

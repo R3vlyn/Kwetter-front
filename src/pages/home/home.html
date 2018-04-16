@@ -116,7 +116,7 @@
                         </ion-col>
                         <ion-col center text-right>
                             <ion-note>
-                                {{calcuateTimeAgo(kweet)}} ago - {{reformatDate(kweet.postDate)}}
+                                {{calculateTimeAgo(kweet.postDate)}} ago - {{formatDate(kweet.postDate)}}
                             </ion-note>
                         </ion-col>
                     </ion-row>
@@ -139,11 +139,16 @@
             </ion-row>
         </ion-card>
     </ion-list>
-    <ion-list *ngFor="let trend of trends">
-        <ion-card *ngIf="selectedSegment === 'Trends'" color="secondary">
+    <ion-list *ngFor="let trend of trends; let i = index">
+        <ion-card *ngIf="selectedSegment === 'Trends'">
             <ion-row>
+                <div class="trend-index">{{i + 1}}</div>
+                <ion-col style="padding: 0.85em;">
+                    <span class="trend-name" (click)="searchHashtag(trend.name)">#{{trend.name}}</span><br>
+                    <span class="trend-timesUsed">{{trend.timesUsed}} kweets</span>
+                </ion-col>
                 <ion-col>
-                    <h2>{{trend.hashtagName}}</h2>
+                    <ion-note class="trend-lastUsed">Last used {{calculateTimeAgo(trend.lastUsed)}} ago</ion-note>
                 </ion-col>
             </ion-row>
         </ion-card>

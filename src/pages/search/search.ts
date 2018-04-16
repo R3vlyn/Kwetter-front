@@ -113,9 +113,9 @@ export class SearchPage {
       })
   }
 
-  calcuateTimeAgo(kweet) {
+  calculateTimeAgo(postDate) {
       var date = new Date();
-      var postdate = new Date(kweet.postDate);
+      var postdate = new Date(postDate);
       var hours = Math.abs(date.getTime() - postdate.getTime()) / 36e5;
       if (hours < 1) {
           return Math.ceil(hours * 60) + 'm'
