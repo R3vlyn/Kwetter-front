@@ -131,4 +131,9 @@ export class SearchPage {
   goToProfile(username: any) {
       this.navCtrl.push(ProfilePage, { user: username });
   }
+
+  searchHashtag(hashtag: any) {
+      this.filtertext = hashtag;
+      this.searchKweets(hashtag);
+  }
 }

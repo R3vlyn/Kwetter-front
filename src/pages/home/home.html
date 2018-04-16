@@ -101,7 +101,7 @@
                         <span (click)='goToProfile(kweet.username)' class='kweet-username'>@{{kweet.username}}</span>
                     </ion-item>
                     <ion-item class='kweet-message'>
-                        <ion-list class='kweet-word' *ngFor="let word of lastkweet.message.split(' ')">
+                        <ion-list class='kweet-word' *ngFor="let word of kweet.message.split(' ')">
                             <span *ngIf="word.startsWith('@')" (click)="goToProfile(word.substr(1))" class="kweet-word-mention">{{word}}</span>
                             <span *ngIf="word.startsWith('#')" (click)="searchHashtag(word.substr(1))" class="kweet-word-hashtag">{{word}}</span>
                             <span *ngIf="!word.startsWith('@') && !word.startsWith('#')">{{word}}</span>
