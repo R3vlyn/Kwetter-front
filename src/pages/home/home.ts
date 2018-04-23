@@ -11,6 +11,7 @@ import { NavController, ToastController, LoadingCmp, LoadingController, Loading 
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
 import { SearchPage } from '../search/search';
+import { TimelinePage } from '../timeline/timeline';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -166,7 +167,7 @@ goToFollowing(){
   this.navCtrl.push(UsersPage, { type: "following", user: this.userService.user });
 }
 goToKweets(){
-  //this.navCtrl.push(TimelinePage, {user: this.userService.user });
+  this.navCtrl.push(TimelinePage, {user: this.userService.user });
 }
 
 goToProfile(username: any) {

@@ -1,3 +1,4 @@
+import { TimelinePage } from './../timeline/timeline';
 import { UsersPage } from './../users/users';
 import { ProfileUpdatePage } from './../profile-update/profile-update';
 import { Component } from '@angular/core';
@@ -164,7 +165,7 @@ export class ProfilePage {
   }
 
   goToKweets() {
-    //this.navCtrl.push(TimelinePage, {user: this.username });
+    this.navCtrl.push(TimelinePage, {user: this.username });
   }
 
   follow() {
