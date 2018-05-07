@@ -54,12 +54,18 @@ export class HomePage {
       if (err) {
         console.log(err);
       } else {
+        console.log(kweet);
         if (kweet.username !== this.userService.user) {
+          kweet.timeago = this.calculateTimeAgo(kweet.postDate);
+          kweet.postDate = this.formatDate(kweet.postDate);
+          this.timeline.splice(0, 0, kweet);
           let toast = this.toastCtrl.create({
             message: `@${kweet.username} has posted a new kweet!`,
             duration: 3000,
           });
           toast.present();
+        } else {
+          this.lastkweet = kweet;
         }
       }
     });
@@ -244,7 +250,6 @@ formatDate(date) {
         });
         toast.present();
         this.newKweetmessage ="";
-        this.refreshLastKweet();
         this.refreshUserTotals();
       }
     });
