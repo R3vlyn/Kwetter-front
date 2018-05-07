@@ -1,4 +1,4 @@
-import { SingletonService } from './singleton.service';
+import { UserService } from './user.service';
 import { Injectable } from '@angular/core';
 
 
@@ -8,8 +8,8 @@ export class kweetEndpoint {
   private PORT: string = '8080';
   private webSocket: any;
 
-  constructor() {
-    this.webSocket = new WebSocket(`ws://${this.HOST}:${this.PORT}/Kwetter-1.0-SNAPSHOT/websocket/kweet`);
+  constructor(private userService: UserService) {
+    this.webSocket = new WebSocket(`ws://${this.HOST}:${this.PORT}/Kwetter-1.0-SNAPSHOT/websocket/kweet/${this.userService.user}`);
     this.webSocket.onopen = function() {
       console.log("connection opened");
     };
@@ -17,13 +17,13 @@ export class kweetEndpoint {
         console.log("connection closed");
     };
     this.webSocket.onerror = function(err) {
-        console.log("error: " + err);
+        console.log(err);
     };
   }
 
-  onMessage(callback) {
+  onKweet(callback) {
     this.webSocket.onmessage = function(message) {
-      callback(null, message);
+      callback(null, JSON.parse(message.data));
     }
   }
 }

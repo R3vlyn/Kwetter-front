@@ -49,6 +49,20 @@ export class HomePage {
     public httpClient: HttpClient) {
     this.refreshUserTotals();
     this.refreshLastKweet();
+
+    this.kweetEndpoint.onKweet((err, kweet) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if (kweet.username !== this.userService.user) {
+          let toast = this.toastCtrl.create({
+            message: `@${kweet.username} has posted a new kweet!`,
+            duration: 3000,
+          });
+          toast.present();
+        }
+      }
+    });
   }
 
   showLoading() {
@@ -220,7 +234,6 @@ formatDate(date) {
 }
 
   postKweet(){
-      console.log(this.newKweetmessage);
     this.kweetPostObservable = this.httpClient.post(this.singleton.createKweetCall(this.userService.user),
     {"message":this.newKweetmessage});
     this.kweetPostObservable.subscribe(data => {
