@@ -2,6 +2,7 @@ import { TimelinePage } from './../pages/timeline/timeline';
 import { SearchPage } from './../pages/search/search';
 import { UsersPage } from './../pages/users/users';
 import { UserService } from './../services/user.service';
+import { kweetEndpoint } from './../services/kweetEndpoint.service';
 import { AuthenticatePage } from './../pages/authenticate/authenticate';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -52,6 +53,7 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     UserService,
     SingletonService,
+    kweetEndpoint,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}

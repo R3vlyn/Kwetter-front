@@ -5,6 +5,7 @@ import { SingletonService } from './../../services/singleton.service';
 import { HttpClient } from '@angular/common/http';
 import { ProfilePage } from './../profile/profile';
 import { UserService } from './../../services/user.service';
+import { kweetEndpoint } from './../../services/kweetEndpoint.service';
 import { User } from './../../models/user';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, ToastController, LoadingCmp, LoadingController, Loading } from 'ionic-angular';
@@ -37,7 +38,15 @@ export class HomePage {
   amount: number = 7;
   loading: Loading;
 
-  constructor(private storage: Storage, private loadingCtrl: LoadingController, public toastCtrl: ToastController, public singleton:SingletonService,public navCtrl: NavController, private userService: UserService,public httpClient: HttpClient) {
+  constructor(
+    private storage: Storage,
+    private loadingCtrl: LoadingController,
+    public toastCtrl: ToastController,
+    public singleton:SingletonService,
+    public navCtrl: NavController,
+    private userService: UserService,
+    private kweetEndpoint: kweetEndpoint,
+    public httpClient: HttpClient) {
     this.refreshUserTotals();
     this.refreshLastKweet();
   }
