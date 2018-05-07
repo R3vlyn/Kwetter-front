@@ -54,7 +54,7 @@ export class HomePage {
       if (err) {
         console.log(err);
       } else {
-        console.log(kweet);
+        console.log(kweet.postDate);
         if (kweet.username !== this.userService.user) {
           kweet.timeago = this.calculateTimeAgo(kweet.postDate);
           kweet.postDate = this.formatDate(kweet.postDate);
@@ -101,7 +101,6 @@ likeKweet(kweet) {
   this.kweetLikeObservable = this.httpClient.post(this.singleton.likeKweetCall(this.userService.user, kweet.kweetId), null);
   this.kweetLikeObservable
     .subscribe(data => {
-      console.log("kweetlike result succes: " + data.succes);
       if (data.succes) {
         let toast = this.toastCtrl.create({
           message: 'Kweet liked!',
@@ -147,6 +146,7 @@ loadMoreTimelineItems(infiniteScroll){
     this.lastkweetObservable = this.httpClient.get(this.singleton.lastKweetsCall(1,this.userService.user));
     this.lastkweetObservable
     .subscribe(data => {
+      console.log(data[0]);
       if(data instanceof Array && data.length >0)
       {
         this.lastkweet = data[0];
@@ -228,7 +228,6 @@ filterMentions(message) {
         }
         filteredWords.push(word);
     });
-    console.log(filteredWords.join(' '));
     return filteredWords.join(' ');
 }
 
